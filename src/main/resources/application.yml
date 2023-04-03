@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:32768/cliniquesolis
+    url: jdbc:postgresql://localhost:32770/cliniquesolis
     username: postgres
     password: postgrespw
     driver-class-name: org.postgresql.Driver
