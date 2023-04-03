@@ -8,6 +8,7 @@ class CliniqueSolisApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
