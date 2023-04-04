@@ -33,7 +33,7 @@ public class AuthenticationService {
                 .mdp(passwordEncoder.encode(req.getPassword()))
                 .nom(req.getNom())
                 .prenom(req.getPrenom())
-                .role(Role.ROLE_UTILISATEUR)
+                .role(Role.UTILISATEUR)
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
