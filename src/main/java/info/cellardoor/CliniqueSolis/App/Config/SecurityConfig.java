@@ -23,10 +23,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
+        httpSecurity
+                .csrf()
+                .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**").permitAll() //allow all to auth cuz no business logic
-                .anyRequest().authenticated()
+                .requestMatchers("/api/auth/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
