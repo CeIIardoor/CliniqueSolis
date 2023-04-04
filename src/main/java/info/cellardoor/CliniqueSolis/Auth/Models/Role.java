@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.Models.Auth;
+package info.cellardoor.CliniqueSolis.Auth.Models;
 
 public enum Role {
     ROLE_MEDECIN,

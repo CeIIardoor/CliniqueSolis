@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.Models.Auth;
+package info.cellardoor.CliniqueSolis.Auth.Models;
 
 
 import jakarta.persistence.*;
@@ -63,6 +63,6 @@ public class AppUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
