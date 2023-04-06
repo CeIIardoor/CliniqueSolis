@@ -1,18 +1,28 @@
 package info.cellardoor.CliniqueSolis.App.Http.Middleware;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import info.cellardoor.CliniqueSolis.App.Http.Request.AuthenticationRequest;
 import info.cellardoor.CliniqueSolis.App.Http.Request.RegisterRequest;
 import info.cellardoor.CliniqueSolis.App.Http.Response.AuthenticationResponse;
+import info.cellardoor.CliniqueSolis.App.Http.Token.Token;
+import info.cellardoor.CliniqueSolis.App.Http.Token.TokenRepository;
+import info.cellardoor.CliniqueSolis.App.Http.Token.TokenType;
 import info.cellardoor.CliniqueSolis.App.Service.JwtService;
 import info.cellardoor.CliniqueSolis.Auth.Models.AppUser;
-import info.cellardoor.CliniqueSolis.Auth.Models.Role;
+import info.cellardoor.CliniqueSolis.Auth.Models.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -26,34 +36,92 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
+    private final TokenRepository tokenRepository;
 
-    public AuthenticationResponse register(RegisterRequest req) {
+
+    public AuthenticationResponse register(RegisterRequest request) {
         var user = AppUser.builder()
-                .email(req.getEmail())
-                .mdp(passwordEncoder.encode(req.getPassword()))
-                .nom(req.getNom())
-                .prenom(req.getPrenom())
-                .role(Role.UTILISATEUR)
+                .prenom(request.getPrenom())
+                .nom(request.getNom())
+                .email(request.getEmail())
+                .mdp(passwordEncoder.encode(request.getPassword()))
+                .role(Roles.UTILISATEUR)
                 .build();
-        userRepository.save(user);
+        var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+        saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
-                .token(jwtToken)
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
                 .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest req) {
-        authenticationManager.authenticate(
+        var user = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         req.getEmail(),
                         req.getPassword()
                 )
-        ); //user is authenticated starting from here on
-        var user = userRepository.findByEmail(req.getEmail()).orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
-
+        ).getPrincipal();
+        //user is authenticated starting from here on
+        var jwtToken = jwtService.generateToken((UserDetails) user);
+        var refreshToken = jwtService.generateRefreshToken((UserDetails) user);
+        revokeAllUserTokens((AppUser) user);
+        saveUserToken((AppUser) user, jwtToken);
         return AuthenticationResponse.builder()
-                .token(jwtToken)
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
                 .build();
+    }
+
+    public void refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        final String refreshToken;
+        final String userEmail;
+        if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
+            return;
+        }
+        refreshToken = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(refreshToken);
+        if (userEmail != null) {
+            var user = this.userRepository.findByEmail(userEmail)
+                    .orElseThrow();
+            if (jwtService.isTokenValid(refreshToken, user)) {
+                var accessToken = jwtService.generateToken(user);
+                revokeAllUserTokens(user);
+                saveUserToken(user, accessToken);
+                var authResponse = AuthenticationResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+            }
+        }
+    }
+
+    private void saveUserToken(AppUser user, String jwtToken) {
+        var token = Token.builder()
+                .user(user)
+                .token(jwtToken)
+                .tokenType(TokenType.BEARER)
+                .expired(false)
+                .revoked(false)
+                .build();
+        tokenRepository.save(token);
+    }
+
+    private void revokeAllUserTokens(AppUser user) {
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+        if (validUserTokens.isEmpty())
+            return;
+        validUserTokens.forEach(token -> {
+            token.setExpired(true);
+            token.setRevoked(true);
+        });
+        tokenRepository.saveAll(validUserTokens);
     }
 }

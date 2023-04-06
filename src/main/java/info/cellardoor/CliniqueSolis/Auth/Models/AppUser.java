@@ -1,6 +1,7 @@
 package info.cellardoor.CliniqueSolis.Auth.Models;
 
 
+import info.cellardoor.CliniqueSolis.App.Http.Token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -17,9 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "app_user")
-
-
+@Table(name = "appuser")
 public class AppUser implements UserDetails {
     @Id
     @GeneratedValue
@@ -29,12 +29,15 @@ public class AppUser implements UserDetails {
     private String email;
     private String mdp;
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Roles role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
+
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
     @Override
     public String getPassword() {
