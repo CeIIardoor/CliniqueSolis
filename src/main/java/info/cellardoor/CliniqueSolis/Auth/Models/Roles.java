@@ -1,10 +1,10 @@
 package info.cellardoor.CliniqueSolis.Auth.Models;
 
 public enum Roles {
-
-    SUPER_ADMIN,
-    MEDECIN,
-    GESTIONNAIRE,
-    INFIRMIER,
-    UTILISATEUR
+    ROLE_ADMIN,
+    ROLE_MEDECIN,
+    ROLE_GESTIONNAIRE,
+    ROLE_INFIRMIER,
+    ROLE_PATIENT,
+    ROLE_UTILISATEUR,
 }

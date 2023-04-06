@@ -9,7 +9,7 @@ import info.cellardoor.CliniqueSolis.App.Http.Token.Token;
 import info.cellardoor.CliniqueSolis.App.Http.Token.TokenRepository;
 import info.cellardoor.CliniqueSolis.App.Http.Token.TokenType;
 import info.cellardoor.CliniqueSolis.App.Service.JwtService;
-import info.cellardoor.CliniqueSolis.Auth.Models.AppUser;
+import info.cellardoor.CliniqueSolis.Auth.Models.User;
 import info.cellardoor.CliniqueSolis.Auth.Models.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,12 +40,12 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = AppUser.builder()
+        var user = User.builder()
                 .prenom(request.getPrenom())
                 .nom(request.getNom())
                 .email(request.getEmail())
                 .mdp(passwordEncoder.encode(request.getPassword()))
-                .role(Roles.UTILISATEUR)
+                .role(Roles.ROLE_UTILISATEUR)
                 .build();
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -67,8 +67,8 @@ public class AuthenticationService {
         //user is authenticated starting from here on
         var jwtToken = jwtService.generateToken((UserDetails) user);
         var refreshToken = jwtService.generateRefreshToken((UserDetails) user);
-        revokeAllUserTokens((AppUser) user);
-        saveUserToken((AppUser) user, jwtToken);
+        revokeAllUserTokens((User) user);
+        saveUserToken((User) user, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
@@ -103,7 +103,7 @@ public class AuthenticationService {
         }
     }
 
-    private void saveUserToken(AppUser user, String jwtToken) {
+    private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
                 .token(jwtToken)
@@ -114,8 +114,8 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
-    private void revokeAllUserTokens(AppUser user) {
-        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+    private void revokeAllUserTokens(User user) {
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getUserId());
         if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach(token -> {

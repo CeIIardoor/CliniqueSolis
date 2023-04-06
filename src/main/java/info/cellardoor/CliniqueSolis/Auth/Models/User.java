@@ -19,17 +19,25 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "appuser")
-public class AppUser implements UserDetails {
+@Table(name = "users")
+public class User implements UserDetails {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Integer userId;
     private String nom;
     private String prenom;
     private String email;
     private String mdp;
     @Enumerated(EnumType.STRING)
     private Roles role;
+
+    public User(String nom, String prenom, String email, String mdp) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.mdp = mdp;
+        this.role = Roles.ROLE_PATIENT;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
