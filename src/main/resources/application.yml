@@ -1,7 +1,9 @@
 #  postgres :
   # docker run -p 5432:5432 -d --name postgres -e POSTGRES_PASSWORD=postgrespw -e POSTGRES_USER=postgres -e POSTGRES_DB=cliniquesolis postgres
+    # when imagine is installed : docker start postgres
 #  PgAdmin4 :
   # docker run -p 5050:80 -e 'PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org' -e 'PGADMIN_DEFAULT_PASSWORD=admin' -d --name pgadmin4 dpage/pgadmin4
+    # when imagine is installed : docker start pgadmin4
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/cliniquesolis
@@ -21,6 +23,6 @@ application:
   security:
     jwt:
       secret-key: 576E5A7234753778214125442A472D4B6150645367556B58703273357638792F
-      expiration: 60000 # 86400000 # a day
+      expiration: 86400000 # a day # 3600000 # 1 hour
       refresh-token:
         expiration: 604800000 # 7 days
