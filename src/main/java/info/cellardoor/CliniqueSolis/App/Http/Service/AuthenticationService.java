@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.App.Http.Middleware;
+package info.cellardoor.CliniqueSolis.App.Http.Service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +8,6 @@ import info.cellardoor.CliniqueSolis.App.Http.Response.AuthenticationResponse;
 import info.cellardoor.CliniqueSolis.App.Http.Token.Token;
 import info.cellardoor.CliniqueSolis.App.Http.Token.TokenRepository;
 import info.cellardoor.CliniqueSolis.App.Http.Token.TokenType;
-import info.cellardoor.CliniqueSolis.App.Service.JwtService;
 import info.cellardoor.CliniqueSolis.Auth.Models.User;
 import info.cellardoor.CliniqueSolis.Auth.Models.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.UserRepository;
@@ -86,7 +85,7 @@ public class AuthenticationService {
             return;
         }
         refreshToken = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(refreshToken);
+        userEmail = jwtService.extractUserEmail(refreshToken);
         if (userEmail != null) {
             var user = this.userRepository.findByEmail(userEmail)
                     .orElseThrow();
