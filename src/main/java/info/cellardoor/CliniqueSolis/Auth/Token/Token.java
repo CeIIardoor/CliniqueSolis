@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.App.Http.Token;
+package info.cellardoor.CliniqueSolis.Auth.Token;
 
 
 import info.cellardoor.CliniqueSolis.Auth.Models.User;

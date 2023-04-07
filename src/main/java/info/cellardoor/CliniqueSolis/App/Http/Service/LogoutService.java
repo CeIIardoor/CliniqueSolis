@@ -1,6 +1,6 @@
 package info.cellardoor.CliniqueSolis.App.Http.Service;
 
-import info.cellardoor.CliniqueSolis.App.Http.Token.TokenRepository;
+import info.cellardoor.CliniqueSolis.Auth.Token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
