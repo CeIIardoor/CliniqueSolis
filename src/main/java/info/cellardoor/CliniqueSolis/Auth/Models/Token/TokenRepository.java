@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.Auth.Token;
+package info.cellardoor.CliniqueSolis.Auth.Models.Token;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

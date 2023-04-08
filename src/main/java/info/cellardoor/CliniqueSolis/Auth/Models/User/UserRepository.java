@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.Auth.Models;
+package info.cellardoor.CliniqueSolis.Auth.Models.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

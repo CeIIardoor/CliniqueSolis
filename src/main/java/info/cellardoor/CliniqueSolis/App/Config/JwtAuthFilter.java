@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import info.cellardoor.CliniqueSolis.Auth.Token.TokenRepository;
+import info.cellardoor.CliniqueSolis.Auth.Models.Token.TokenRepository;
 
 import java.io.IOException;
 

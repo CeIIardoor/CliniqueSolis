@@ -1,7 +1,7 @@
-package info.cellardoor.CliniqueSolis.Auth.Models;
+package info.cellardoor.CliniqueSolis.Auth.Models.User;
 
 
-import info.cellardoor.CliniqueSolis.Auth.Token.Token;
+import info.cellardoor.CliniqueSolis.Auth.Models.Token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

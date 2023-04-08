@@ -1,7 +1,7 @@
 package info.cellardoor.CliniqueSolis.App.Config;
 
 
-import info.cellardoor.CliniqueSolis.Auth.Models.UserRepository;
+import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
