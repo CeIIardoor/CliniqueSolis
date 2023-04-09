@@ -21,8 +21,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private Integer userId;
     private String nom;
     private String prenom;

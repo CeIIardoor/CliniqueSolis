@@ -1,9 +1,9 @@
 #  postgres :
   # docker run -p 5432:5432 -d --name postgres -e POSTGRES_PASSWORD=postgrespw -e POSTGRES_USER=postgres -e POSTGRES_DB=cliniquesolis postgres
-    # when imagine is installed : docker start postgres
+    # when image is installed : docker start postgres
 #  PgAdmin4 :
   # docker run -p 5050:80 -e 'PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org' -e 'PGADMIN_DEFAULT_PASSWORD=admin' -d --name pgadmin4 dpage/pgadmin4
-    # when imagine is installed : docker start pgadmin4
+    # when image is installed : docker start pgadmin4
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/cliniquesolis
