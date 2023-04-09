@@ -8,5 +8,4 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
     Optional<Patient> findByPatientId(Integer patientId);
 
-
 }
