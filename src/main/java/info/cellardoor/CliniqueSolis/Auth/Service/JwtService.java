@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.App.Http.Service;
+package info.cellardoor.CliniqueSolis.Auth.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

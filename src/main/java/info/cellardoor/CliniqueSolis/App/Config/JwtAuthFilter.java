@@ -1,6 +1,6 @@
 package info.cellardoor.CliniqueSolis.App.Config;
 
-import info.cellardoor.CliniqueSolis.App.Http.Service.JwtService;
+import info.cellardoor.CliniqueSolis.Auth.Service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

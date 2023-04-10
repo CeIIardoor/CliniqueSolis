@@ -1,7 +1,7 @@
 package info.cellardoor.CliniqueSolis.Auth.Controller;
 
 
-import info.cellardoor.CliniqueSolis.App.Http.Service.AuthenticationService;
+import info.cellardoor.CliniqueSolis.Auth.Service.AuthenticationService;
 import info.cellardoor.CliniqueSolis.App.Http.Request.AuthenticationRequest;
 import info.cellardoor.CliniqueSolis.App.Http.Request.RegisterRequest;
 import info.cellardoor.CliniqueSolis.App.Http.Response.AuthenticationResponse;
