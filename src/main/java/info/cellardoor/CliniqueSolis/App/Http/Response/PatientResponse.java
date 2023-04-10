@@ -23,4 +23,8 @@ public class PatientResponse {
     private String nom;
     @JsonProperty("prenom")
     private String prenom;
+    @JsonProperty("email")
+    private String email;
+    @JsonProperty("role")
+    private String role;
 }

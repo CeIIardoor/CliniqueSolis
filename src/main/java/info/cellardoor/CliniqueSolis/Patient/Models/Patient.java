@@ -16,7 +16,8 @@ import lombok.NoArgsConstructor;
 public class Patient{
     @Id @GeneratedValue
     private Integer patientId;
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     public User user;
     private String groupeSanguin;
@@ -25,11 +26,5 @@ public class Patient{
     private String chirurgies;
     private String antecedentsFamiliaux;
     private String cin;
-
-    public Patient(String nom, String prenom, String cin , String groupeSanguin) {
-        this.user = User.builder().nom(nom).prenom(prenom).build();
-        this.cin = cin;
-        this.groupeSanguin = groupeSanguin;
-    }
 
 }

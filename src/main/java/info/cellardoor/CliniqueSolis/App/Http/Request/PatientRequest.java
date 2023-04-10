@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientRequest {
-
+    private String email;
+    private String mdp;
     private String cin;
     private String groupeSanguin;
     private String nom;
