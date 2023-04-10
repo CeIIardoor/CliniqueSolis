@@ -25,4 +25,11 @@ public class Patient{
     private String chirurgies;
     private String antecedentsFamiliaux;
     private String cin;
+
+    public Patient(String nom, String prenom, String cin , String groupeSanguin) {
+        this.user = User.builder().nom(nom).prenom(prenom).build();
+        this.cin = cin;
+        this.groupeSanguin = groupeSanguin;
+    }
+
 }
