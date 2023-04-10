@@ -31,28 +31,20 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/images/**") // Authorize all requests to images
-                .permitAll()
-                .requestMatchers("/assets/**") // Authorize all requests to images
-                .permitAll()
-                .requestMatchers("/*") // Authorize all requests to index.html
-                .permitAll()
-                .requestMatchers("/api/auth/**") // Authorize all requests to auth
-                .permitAll()
-                .requestMatchers("/api/patient/**") // TODO : remove authorize all requests to patient
-                .permitAll()
-                .anyRequest()
+                .requestMatchers("/api/demo-controller/hello")
                 .authenticated()
+                .anyRequest()
+                .permitAll()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Disable session creation on Spring Security
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT filter
                 .logout()
                 .logoutUrl("/api/auth/logout")
                 .addLogoutHandler(logoutHandler)
-                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
+                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()); // Clear security context
 
         return httpSecurity.build();
     }
