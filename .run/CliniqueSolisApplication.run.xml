@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CliniqueSolisApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="CliniqueSolis" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="info.cellardoor.CliniqueSolis.CliniqueSolisApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+      <option name="NpmBeforeRunTask" enabled="true">
+        <package-json value="$PROJECT_DIR$/src/main/frontend/package.json" />
+        <command value="run" />
+        <scripts>
+          <script value="build" />
+        </scripts>
+        <node-interpreter value="project" />
+        <envs />
+      </option>
+    </method>
+  </configuration>
+</component>

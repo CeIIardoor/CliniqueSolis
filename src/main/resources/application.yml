@@ -5,6 +5,13 @@
   # docker run -p 5050:80 --restart unless-stopped -e 'PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org' -e 'PGADMIN_DEFAULT_PASSWORD=admin' -d --name pgadmin4 dpage/pgadmin4
     # when image is installed : docker start pgadmin4
 spring:
+  profiles:
+    active: dev
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: file:src/main/resources/templates/
   datasource:
     url: jdbc:postgresql://localhost:5432/cliniquesolis
     username: postgres
@@ -19,6 +26,14 @@ spring:
         format_sql: true
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  web:
+    resources:
+      # noinspection SpringBootApplicationYaml
+      static-locations[0]: "file:src/main/resources/static/"
+      # noinspection SpringBootApplicationYaml
+      static-locations[1]: "classpath:/static/"
+      cache:
+        period: 0
 application:
   security:
     jwt:
