@@ -31,11 +31,13 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/*")
+                .requestMatchers("/images/**") // Authorize all requests to images
                 .permitAll()
-                .requestMatchers("/api/patient/**")
+                .requestMatchers("/*") // Authorize all requests to index.html
                 .permitAll()
-                .requestMatchers("/api/auth/**")
+                .requestMatchers("/api/patient/**") // TODO : remove authorize all requests to patient
+                .permitAll()
+                .requestMatchers("/api/auth/**") // Authorize all requests to auth
                 .permitAll()
                 .anyRequest()
                 .authenticated()
