@@ -25,5 +25,20 @@ public class PatientController {
     ) {
         return ResponseEntity.ok(patientService.createPatient(patientRequest));
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletePatientById(
+
+            @PathVariable("id") Integer id
+    ) {
+        patientService.deletePatientById(id);
+        return ResponseEntity.ok("Patient deleted");
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<PatientResponse> updatePatientById(
+            @PathVariable("id") Integer id,
+            @RequestBody PatientRequest patientRequest
+    ) {
+        return ResponseEntity.ok(patientService.updatePatientById(id, patientRequest));
+    }
 
 }
