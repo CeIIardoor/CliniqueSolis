@@ -2,9 +2,9 @@ package info.cellardoor.CliniqueSolis.Auth.Service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import info.cellardoor.CliniqueSolis.App.Http.Request.AuthenticationRequest;
-import info.cellardoor.CliniqueSolis.App.Http.Request.RegisterRequest;
-import info.cellardoor.CliniqueSolis.App.Http.Response.AuthenticationResponse;
+import info.cellardoor.CliniqueSolis.Auth.Http.Request.AuthenticationRequest;
+import info.cellardoor.CliniqueSolis.Patient.Http.Request.RegisterRequest;
+import info.cellardoor.CliniqueSolis.Auth.Http.Response.AuthenticationResponse;
 import info.cellardoor.CliniqueSolis.Auth.Models.Token.Token;
 import info.cellardoor.CliniqueSolis.Auth.Models.Token.TokenRepository;
 import info.cellardoor.CliniqueSolis.Auth.Models.Token.TokenType;

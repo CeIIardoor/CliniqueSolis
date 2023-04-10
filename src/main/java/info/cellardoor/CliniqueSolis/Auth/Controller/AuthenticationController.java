@@ -2,9 +2,9 @@ package info.cellardoor.CliniqueSolis.Auth.Controller;
 
 
 import info.cellardoor.CliniqueSolis.Auth.Service.AuthenticationService;
-import info.cellardoor.CliniqueSolis.App.Http.Request.AuthenticationRequest;
-import info.cellardoor.CliniqueSolis.App.Http.Request.RegisterRequest;
-import info.cellardoor.CliniqueSolis.App.Http.Response.AuthenticationResponse;
+import info.cellardoor.CliniqueSolis.Auth.Http.Request.AuthenticationRequest;
+import info.cellardoor.CliniqueSolis.Patient.Http.Request.RegisterRequest;
+import info.cellardoor.CliniqueSolis.Auth.Http.Response.AuthenticationResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

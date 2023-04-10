@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.App.Http.Response;
+package info.cellardoor.CliniqueSolis.Patient.Http.Response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

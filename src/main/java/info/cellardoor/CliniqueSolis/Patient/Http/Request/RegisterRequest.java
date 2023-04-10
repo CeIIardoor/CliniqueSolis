@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.App.Http.Request;
+package info.cellardoor.CliniqueSolis.Patient.Http.Request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatientRequest {
-    private String email;
-    private String mdp;
-    private String cin;
-    private String groupeSanguin;
+public class RegisterRequest {
+
     private String nom;
     private String prenom;
+    private String email;
+    private String password;
+
 }

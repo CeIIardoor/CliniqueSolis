@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.App.Http.Response;
+package info.cellardoor.CliniqueSolis.Auth.Http.Response;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
