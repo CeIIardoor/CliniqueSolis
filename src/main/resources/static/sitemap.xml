@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/authentication/</loc>
+    <loc>/authentication/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/crud/</loc>
+    <loc>/crud/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/layouts/</loc>
+    <loc>/layouts/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/pages/</loc>
+    <loc>/pages/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/playground/</loc>
+    <loc>/playground/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/pages/404/</loc>
+    <loc>/pages/404/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/pages/500/</loc>
+    <loc>/pages/500/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/</loc>
+    <loc>/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/layouts/sidebar/</loc>
+    <loc>/layouts/sidebar/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/layouts/stacked/</loc>
+    <loc>/layouts/stacked/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/authentication/forgot-password/</loc>
+    <loc>/authentication/forgot-password/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/pages/maintenance/</loc>
+    <loc>/pages/maintenance/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/pages/pricing/</loc>
+    <loc>/pages/pricing/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/crud/products/</loc>
+    <loc>/crud/products/index.html</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/authentication/profile-lock/</loc>
+    <loc>/authentication/profile-lock/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/authentication/reset-password/</loc>
+    <loc>/authentication/reset-password/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/playground/sidebar/</loc>
+    <loc>/playground/sidebar/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/authentication/sign-in/</loc>
+    <loc>/authentication/sign-in/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/authentication/sign-up/</loc>
+    <loc>/authentication/sign-up/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/playground/stacked/</loc>
+    <loc>/playground/stacked/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/settings/</loc>
+    <loc>/settings/</loc>
   </url>
   <url>
-    <loc>https://flowbite-admin-dashboard.vercel.app/crud/users/</loc>
+    <loc>/crud/users/index.html</loc>
   </url>
 </urlset>
