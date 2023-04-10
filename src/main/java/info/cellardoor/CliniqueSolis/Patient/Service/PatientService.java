@@ -1,7 +1,7 @@
 package info.cellardoor.CliniqueSolis.Patient.Service;
 
-import info.cellardoor.CliniqueSolis.App.Http.Request.PatientRequest;
-import info.cellardoor.CliniqueSolis.App.Http.Response.PatientResponse;
+import info.cellardoor.CliniqueSolis.Patient.Http.Request.PatientRequest;
+import info.cellardoor.CliniqueSolis.Patient.Http.Response.PatientResponse;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
