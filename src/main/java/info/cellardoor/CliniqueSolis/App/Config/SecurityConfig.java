@@ -33,11 +33,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/images/**") // Authorize all requests to images
                 .permitAll()
+                .requestMatchers("/assets/**") // Authorize all requests to images
+                .permitAll()
                 .requestMatchers("/*") // Authorize all requests to index.html
                 .permitAll()
-                .requestMatchers("/api/patient/**") // TODO : remove authorize all requests to patient
-                .permitAll()
                 .requestMatchers("/api/auth/**") // Authorize all requests to auth
+                .permitAll()
+                .requestMatchers("/api/patient/**") // TODO : remove authorize all requests to patient
                 .permitAll()
                 .anyRequest()
                 .authenticated()
