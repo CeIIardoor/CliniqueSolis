@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.App.Config;
+package info.cellardoor.CliniqueSolis.App.Filters;
 
 import info.cellardoor.CliniqueSolis.Auth.Service.JwtService;
 import jakarta.servlet.FilterChain;
