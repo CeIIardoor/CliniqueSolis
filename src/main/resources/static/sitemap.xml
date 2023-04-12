@@ -1,69 +1,72 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>/authentication/</loc>
-  </url>
-  <url>
-    <loc>/crud/</loc>
-  </url>
-  <url>
-    <loc>/layouts/</loc>
-  </url>
-  <url>
-    <loc>/pages/</loc>
-  </url>
-  <url>
-    <loc>/playground/</loc>
-  </url>
-  <url>
-    <loc>/pages/404/</loc>
-  </url>
-  <url>
-    <loc>/pages/500/</loc>
-  </url>
+<urlset xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
   </url>
   <url>
-    <loc>/layouts/sidebar/</loc>
+    <loc>/dashboard/</loc>
   </url>
   <url>
-    <loc>/layouts/stacked/</loc>
+    <loc>/dashboard/authentication/</loc>
   </url>
   <url>
-    <loc>/authentication/forgot-password/</loc>
+    <loc>/dashboard/crud/</loc>
   </url>
   <url>
-    <loc>/pages/maintenance/</loc>
+    <loc>/dashboard/layouts/</loc>
   </url>
   <url>
-    <loc>/pages/pricing/</loc>
+    <loc>/dashboard/pages/</loc>
   </url>
   <url>
-    <loc>/crud/products/index.html</loc>
+    <loc>/dashboard/playground/</loc>
   </url>
   <url>
-    <loc>/authentication/profile-lock/</loc>
+    <loc>/dashboard/pages/404/</loc>
   </url>
   <url>
-    <loc>/authentication/reset-password/</loc>
+    <loc>/dashboard/pages/500/</loc>
   </url>
   <url>
-    <loc>/playground/sidebar/</loc>
+    <loc>/dashboard/layouts/sidebar/</loc>
   </url>
   <url>
-    <loc>/authentication/sign-in/</loc>
+    <loc>/dashboard/layouts/stacked/</loc>
   </url>
   <url>
-    <loc>/authentication/sign-up/</loc>
+    <loc>/dashboard/authentication/forgot-password/</loc>
   </url>
   <url>
-    <loc>/playground/stacked/</loc>
+    <loc>/dashboard/pages/maintenance/</loc>
   </url>
   <url>
-    <loc>/settings/</loc>
+    <loc>/dashboard/pages/pricing/</loc>
   </url>
   <url>
-    <loc>/crud/users/index.html</loc>
+    <loc>/dashboard/crud/products/index.html</loc>
+  </url>
+  <url>
+    <loc>/dashboard/authentication/profile-lock/</loc>
+  </url>
+  <url>
+    <loc>/dashboard/authentication/reset-password/</loc>
+  </url>
+  <url>
+    <loc>/dashboard/playground/sidebar/</loc>
+  </url>
+  <url>
+    <loc>/dashboard/authentication/sign-in/</loc>
+  </url>
+  <url>
+    <loc>/dashboard/authentication/sign-up/</loc>
+  </url>
+  <url>
+    <loc>/dashboard/playground/stacked/</loc>
+  </url>
+  <url>
+    <loc>/dashboard/settings/</loc>
+  </url>
+  <url>
+    <loc>/dashboard/crud/users/index.html</loc>
   </url>
 </urlset>

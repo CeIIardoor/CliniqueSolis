@@ -7,11 +7,6 @@
 spring:
   profiles:
     active: dev
-  thymeleaf:
-    cache: false
-    mode: HTML
-    encoding: UTF-8
-    prefix: file:src/main/resources/templates/
   datasource:
     url: jdbc:postgresql://localhost:5432/cliniquesolis
     username: postgres
@@ -26,14 +21,6 @@ spring:
         format_sql: true
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  web:
-    resources:
-      # noinspection SpringBootApplicationYaml
-      static-locations[0]: "file:src/main/resources/static/"
-      # noinspection SpringBootApplicationYaml
-      static-locations[1]: "classpath:/static/"
-      cache:
-        period: 0
 application:
   security:
     jwt:
