@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("/dashboard/**") // Change "/custom-url/**" to your desired URL path
+                .addResourceHandler("/dashboard/**")
                 .addResourceLocations("classpath:/static/dashboard/");
     }
 }
