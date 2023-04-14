@@ -8,6 +8,7 @@ import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import info.cellardoor.CliniqueSolis.Patient.Models.PatientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,14 @@ public class PatientService {
 
     public PatientResponse getPatientById(Integer id) {
         var patient = patientRepository.findByPatientId(id).orElseThrow(() -> new NoSuchElementException("Patient not found"));
+        return PatientResponse.builder()
+                .patientId(patient.getPatientId())
+                .cin(patient.getCin())
+                .groupeSanguin(patient.getGroupeSanguin())
+                .build();
+    }
+    public PatientResponse getPatientByCin(String cin) {
+        var patient = patientRepository.findByCin(cin).orElseThrow(() -> new NoSuchElementException("Patient not found"));
         return PatientResponse.builder()
                 .patientId(patient.getPatientId())
                 .cin(patient.getCin())
@@ -59,17 +68,45 @@ public class PatientService {
                 .orElseThrow(() -> new NoSuchElementException("Patient not found"));
         patientRepository.delete(patient);
     }
+    public void deletePatientByCin(String cin) {
+        var patient = patientRepository.findByCin(cin)
+                .orElseThrow(() -> new NoSuchElementException("Patient not found"));
+        patientRepository.delete(patient);
+    }
 
     public PatientResponse updatePatientById(Integer id, PatientRequest patientRequest) {
         var patient = patientRepository.findByPatientId(id)
                 .orElseThrow(() -> new NoSuchElementException("Patient not found"));
-        var user = patient.getUser();
-        user.setNom(patientRequest.getNom());
-        user.setPrenom(patientRequest.getPrenom());
-        patient.setCin(patientRequest.getCin());
-        patient.setGroupeSanguin(patientRequest.getGroupeSanguin());
-        var savedUser = userRepository.save(user);
+        return getPatientResponse(patientRequest, patient);
+    }
+    public PatientResponse updatePatientByCin(String cin, PatientRequest patientRequest) {
+        var patient = patientRepository.findByCin(cin)
+                .orElseThrow(() -> new NoSuchElementException("Patient not found"));
+        return getPatientResponse(patientRequest, patient);
+    }
+
+    private PatientResponse getPatientResponse(PatientRequest patientRequest, Patient patient) {
+        if (patientRequest.getCin() != null) {
+            patient.setCin(patientRequest.getCin());
+        }
+        if (patientRequest.getGroupeSanguin() != null) {
+            patient.setGroupeSanguin(patientRequest.getGroupeSanguin());
+        }
         var savedPatient = patientRepository.save(patient);
+        var user = patient.getUser();
+        if (patientRequest.getEmail() != null) {
+            patient.getUser().setEmail(patientRequest.getEmail());
+        }
+        if(patientRequest.getRole() != null){
+            patient.getUser().setRole(Roles.valueOf(patientRequest.getRole()));
+        }
+        if (patientRequest.getNom() != null) {
+            patient.getUser().setNom(patientRequest.getNom());
+        }
+        if (patientRequest.getPrenom() != null) {
+            patient.getUser().setPrenom(patientRequest.getPrenom());
+        }
+        var savedUser = userRepository.save(user);
         return PatientResponse.builder()
                 .patientId(savedPatient.getPatientId())
                 .cin(savedPatient.getCin())
@@ -77,6 +114,8 @@ public class PatientService {
                 .userId(savedUser.getUserId())
                 .nom(savedUser.getNom())
                 .prenom(savedUser.getPrenom())
+                .role(String.valueOf(savedUser.getRole()))
+                .email(String.valueOf(savedUser.getEmail()))
                 .build();
     }
 }
