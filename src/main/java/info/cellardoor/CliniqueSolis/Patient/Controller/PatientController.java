@@ -23,9 +23,8 @@ public class PatientController {
     @GetMapping("/search")
     public ResponseEntity<ListPatientResponse> getByCinContaining(
             @RequestParam(value = "cin", required = false) String cin) {
-        if (cin == null)
-        {
-            return ResponseEntity.ok(patientService.getAllPatients());
+        if (cin == null) {
+            return ResponseEntity.ok(patientService.getAll());
         }
         return ResponseEntity.ok(patientService.getByCinContaining(cin));
     }

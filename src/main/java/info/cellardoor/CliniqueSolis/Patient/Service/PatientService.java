@@ -119,7 +119,7 @@ public class PatientService {
                 .build();
     }
 
-    public ListPatientResponse getAllPatients() {
+    public ListPatientResponse getAll() {
         var patients = patientRepository.findAll();
         return ListPatientResponse.builder()
                 .patients(patients.stream().map(patient -> PatientResponse.builder()
