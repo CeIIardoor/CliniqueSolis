@@ -8,17 +8,16 @@ import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @Order(1)
-public class UsersSeeder implements CommandLineRunner {
+public class UserSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final Faker faker = LocalizedFakerFrench.getInstance();
     private final User admin = User.getAdminInstance("Elliot", "Alderson", "e.alderson@solis.ma", "123456");
-    public UsersSeeder(UserRepository userRepository) {
+    public UserSeeder(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/patient")
+@RequestMapping("/api/rendezvous")
 @RequiredArgsConstructor
 public class RendezVousController {
 
@@ -18,7 +18,7 @@ public class RendezVousController {
         return ResponseEntity.ok(rendezVousService.getAll());
     }
 
-    @GetMapping("/search/{year}/{month}/{day}")
+    @GetMapping("/date/{year}/{month}/{day}")
     public ResponseEntity<ListRendezVousResponse> getByDate(
             @PathVariable("year") Integer year,
             @PathVariable("month") Integer month,

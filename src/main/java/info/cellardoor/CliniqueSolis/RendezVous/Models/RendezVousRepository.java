@@ -3,7 +3,6 @@ package info.cellardoor.CliniqueSolis.RendezVous.Models;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface RendezVousRepository extends JpaRepository<RendezVous ,Integer> {
