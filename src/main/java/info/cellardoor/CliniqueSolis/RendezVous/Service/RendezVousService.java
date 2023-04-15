@@ -7,8 +7,6 @@ import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVousRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -32,53 +30,15 @@ public class RendezVousService {
                 .build();
     }
 
-
-
-    public ListRendezVousResponse getByYear(Integer year) {
-        List<RendezVous> listeRendezVous = rendezVousRepository.findByDateBetween(Date.valueOf(LocalDate.of(year, 1, 1)), Date.valueOf(LocalDate.of(year, 12, 31)));
-        if (listeRendezVous.size() == 0)
-            return null;
-        return ListRendezVousResponse.builder()
-                .rendezVous(listeRendezVous.stream().map(rendezVous -> RendezVousResponse.builder()
-                                .rendezVousId(rendezVous.getRendezVousId())
-                                .patient(rendezVous.getPatient())
-                                .medecin(rendezVous.getMedecin())
-                                .date(rendezVous.getDate())
-                                .build())
-                        .toList())
+    public RendezVousResponse getByDate(String date) {
+        var rendezVous = rendezVousRepository.findByDate(date).orElse(null);
+        return rendezVous == null ? null : RendezVousResponse.builder()
+                .rendezVousId(rendezVous.getRendezVousId())
+                .patient(rendezVous.getPatient())
+                .medecin(rendezVous.getMedecin())
+                .date(rendezVous.getDate())
                 .build();
-    }
 
-    public ListRendezVousResponse getByMonth(Integer year, Integer month) {
-        List<RendezVous> listeRendezVous = rendezVousRepository.findByDateBetween(
-                Date.valueOf(LocalDate.of(year, month, 1)),
-                Date.valueOf(LocalDate.of(year, month, 31))
-        );
-        if (listeRendezVous.size() == 0)
-            return null;
-        return ListRendezVousResponse.builder()
-                .rendezVous(listeRendezVous.stream().map(rendezVous -> RendezVousResponse.builder()
-                                .rendezVousId(rendezVous.getRendezVousId())
-                                .patient(rendezVous.getPatient())
-                                .medecin(rendezVous.getMedecin())
-                                .date(rendezVous.getDate())
-                                .build())
-                        .toList())
-                .build();
-    }
 
-    public ListRendezVousResponse getByDate(Integer year, Integer month, Integer day) {
-        List<RendezVous> listeRendezVous = rendezVousRepository.findByDate(Date.valueOf(LocalDate.of(year, month, day)));
-        if (listeRendezVous.size() == 0)
-            return null;
-        return ListRendezVousResponse.builder()
-                .rendezVous(listeRendezVous.stream().map(rendezVous -> RendezVousResponse.builder()
-                                .rendezVousId(rendezVous.getRendezVousId())
-                                .patient(rendezVous.getPatient())
-                                .medecin(rendezVous.getMedecin())
-                                .date(rendezVous.getDate())
-                                .build())
-                        .toList())
-                .build();
     }
 }

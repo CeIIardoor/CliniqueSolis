@@ -12,10 +12,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.util.concurrent.TimeUnit;
-
 @Component
 @Order(4)
 public class RendezVousSeeder implements CommandLineRunner {
@@ -46,8 +42,8 @@ public class RendezVousSeeder implements CommandLineRunner {
                     .patient(patient)
                     .medecin(medecin)
                     .duree(faker.options().option(15, 30, 45, 60))
-                    .date(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis((long) (Math.random() * 365))))
-                    .heure(new Time((long) (Math.random() * 24 * 60 * 60 * 1000)))
+                    .date(String.format("%02d-%02d-%02d", faker.number().numberBetween(2023, 2024), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)))
+                    .heure(String.format("%02d:%02d", faker.number().numberBetween(8, 18), faker.options().option(0, 30)))
                     .build();
             rendezVousRepository.save(rdv);
         }

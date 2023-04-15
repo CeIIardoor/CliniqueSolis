@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-import java.sql.Time;
 
 @Data
 @AllArgsConstructor
@@ -23,9 +21,9 @@ public class RendezVousResponse {
     @JsonProperty("medecin_id")
     private Medecin medecin;
     @JsonProperty("date")
-    private Date date;
+    private String date;
     @JsonProperty("heure")
-    private Time heure;
+    private String heure;
     @JsonProperty("duree")
     private Integer duree;
 
