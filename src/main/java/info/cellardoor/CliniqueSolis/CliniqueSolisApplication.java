@@ -9,4 +9,5 @@ public class CliniqueSolisApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CliniqueSolisApplication.class, args);
 	}
+
 }
