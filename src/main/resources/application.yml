@@ -7,6 +7,11 @@
 spring:
   profiles:
     active: dev
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: file:src/main/resources/templates/
   datasource:
     url: jdbc:postgresql://localhost:5432/cliniquesolis
     username: postgres
