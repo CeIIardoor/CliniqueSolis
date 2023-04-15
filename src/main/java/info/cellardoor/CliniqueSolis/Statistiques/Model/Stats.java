@@ -11,9 +11,6 @@ import lombok.*;
 public class Stats {
     @Id
     private  Long id;
-    private String revenus;
-    private String nombrePatients;
-    private String nombreConsultations;
-    private String nombreRendezvous;
+
 
 }
