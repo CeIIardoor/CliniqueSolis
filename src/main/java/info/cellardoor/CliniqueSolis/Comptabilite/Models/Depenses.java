@@ -15,9 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table(name = "Depences")
+@Table(name = "Depenses")
 
-public class Depences {
+public class Depenses {
 
     @Id
     private Integer id_revenu;

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @NoArgsConstructor
 @AllArgsConstructor
 @Service
-public class DepencesService {
+public class DepensesService {
 
 
 }

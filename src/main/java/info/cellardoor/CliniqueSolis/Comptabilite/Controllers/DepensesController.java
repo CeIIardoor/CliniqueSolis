@@ -1,5 +1,5 @@
 package info.cellardoor.CliniqueSolis.Comptabilite.Controllers;
 
-public class DepencesController {
+public class DepensesController {
 
 }
