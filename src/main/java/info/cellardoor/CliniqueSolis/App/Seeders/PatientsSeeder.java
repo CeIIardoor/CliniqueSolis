@@ -1,15 +1,13 @@
 package info.cellardoor.CliniqueSolis.App.Seeders;
 
-
 import com.github.javafaker.Faker;
-import info.cellardoor.CliniqueSolis.App.Config.LocalizedFaker;
+import info.cellardoor.CliniqueSolis.App.Config.LocalizedFakerFrench;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import info.cellardoor.CliniqueSolis.Patient.Models.PatientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class PatientsSeeder implements CommandLineRunner {
 
     private final PatientRepository patientRepository;
-    private final Faker faker = LocalizedFaker.getInstance();
+    private final Faker faker = LocalizedFakerFrench.getInstance();
 
     public PatientsSeeder(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
@@ -28,14 +26,14 @@ public class PatientsSeeder implements CommandLineRunner {
         int nbPatients = 5;
 
         for (int i = 0; i < nbPatients; i++) {
-            User user = UsersSeeder.getSeed(faker, new BCryptPasswordEncoder());
+            User user = UsersSeeder.getSeed(faker);
             user.setRole(Roles.ROLE_PATIENT);
 
             String groupeSanguin = faker.options().option("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-");
-            String allergies = faker.food().ingredient();
-            String maladiesChroniques = faker.medical().diseaseName();
-            String chirurgies = faker.medical().symptoms();
-            String antecedentsFamiliaux = faker.medical().diseaseName();
+            String allergies = Math.random() > 0.5 ? faker.food().ingredient() : null;
+            String maladiesChroniques = Math.random() > 0.5 ? faker.medical().diseaseName() : null;
+            String chirurgies = Math.random() > 0.5 ? faker.medical().diseaseName() : null;
+            String antecedentsFamiliaux = Math.random() > 0.5 ? faker.medical().diseaseName() : null;
             String cin = faker.regexify("[A-Z]{2}[0-9]{5}");
 
             Patient patient = Patient.builder()

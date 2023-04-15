@@ -4,11 +4,15 @@ import com.github.javafaker.Faker;
 
 import java.util.Locale;
 
-public class LocalizedFaker {
+public class LocalizedFakerFrench {
     private static Faker instance;
+    public static void setInstance(Faker instance) {
+        LocalizedFakerFrench.instance = instance;
+    }
     public static Faker getInstance() {
         if (instance == null) {
-            return new Faker(new Locale("fr", "FR"));
+            setInstance(new Faker(new Locale("fr", "FR")));
+            return instance;
         }
         return instance;
     }

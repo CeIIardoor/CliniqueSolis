@@ -2,7 +2,7 @@ package info.cellardoor.CliniqueSolis.App.Seeders;
 
 
 import com.github.javafaker.Faker;
-import info.cellardoor.CliniqueSolis.App.Config.LocalizedFaker;
+import info.cellardoor.CliniqueSolis.App.Config.LocalizedFakerFrench;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class UsersSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
-    private final Faker faker = LocalizedFaker.getInstance();
+    private final Faker faker = LocalizedFakerFrench.getInstance();
     private final User admin = User.getAdminInstance("Elliot", "Alderson", "e.alderson@solis.ma", "123456");
     public UsersSeeder(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -30,16 +30,16 @@ public class UsersSeeder implements CommandLineRunner {
         int nbUsers = 5;
 
         for (int i = 0; i < nbUsers; i++) {
-            User user = getSeed(faker, new BCryptPasswordEncoder());
+            User user = getSeed(faker);
             userRepository.save(user);
         }
     }
 
-    static User getSeed(Faker faker, PasswordEncoder passwordEncoder) {
+    static User getSeed(Faker faker) {
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
         String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@solis.ma";
-        String password = passwordEncoder.encode("123456");
+        String password = new BCryptPasswordEncoder().encode("123456");
         return new User(firstName, lastName, email, password);
     }
 }
