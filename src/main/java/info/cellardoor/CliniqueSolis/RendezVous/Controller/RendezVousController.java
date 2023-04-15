@@ -1,18 +1,10 @@
 package info.cellardoor.CliniqueSolis.RendezVous.Controller;
 
 import info.cellardoor.CliniqueSolis.RendezVous.Http.Reponse.ListRendezVousResponse;
-import info.cellardoor.CliniqueSolis.RendezVous.Http.Reponse.RendezVousResponse;
-import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVous;
-import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVousRepository;
 import info.cellardoor.CliniqueSolis.RendezVous.Service.RendezVousService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/patient")
@@ -40,5 +32,7 @@ public class RendezVousController {
                     return ResponseEntity.ok(rendezVousService.getByMonth(year,month));
             else
                 return ResponseEntity.ok(rendezVousService.getByYear(year));
+
+        return ResponseEntity.ok(rendezVousService.getAll());
     }
 }
