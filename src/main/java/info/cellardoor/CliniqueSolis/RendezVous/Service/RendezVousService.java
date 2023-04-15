@@ -17,6 +17,20 @@ public class RendezVousService {
 
     public ListRendezVousResponse getAll() {
         List<RendezVous> listeRendezVous = rendezVousRepository.findAll();
+        return rendezVousDTO(listeRendezVous);
+    }
+
+    public ListRendezVousResponse getByDate(String date) {
+        List<RendezVous> listeRendezVous = rendezVousRepository.findByDate(date);
+        return rendezVousDTO(listeRendezVous);
+    }
+
+    public ListRendezVousResponse getByPartialDate(String date) {
+        List<RendezVous> listeRendezVous = rendezVousRepository.findByDateStartingWith(date);
+        return rendezVousDTO(listeRendezVous);
+    }
+
+    private ListRendezVousResponse rendezVousDTO(List<RendezVous> listeRendezVous) {
         if (listeRendezVous.size() == 0)
             return null;
         return ListRendezVousResponse.builder()
@@ -30,17 +44,5 @@ public class RendezVousService {
                                 .build())
                         .toList())
                 .build();
-    }
-
-    public RendezVousResponse getByDate(String date) {
-        var rendezVous = rendezVousRepository.findByDate(date).orElse(null);
-        return rendezVous == null ? null : RendezVousResponse.builder()
-                .rendezVousId(rendezVous.getRendezVousId())
-                .patientId(rendezVous.getPatient().getPatientId())
-                .medecinId(rendezVous.getMedecin().getMedecinId())
-                .date(rendezVous.getDate())
-                .build();
-
-
     }
 }
