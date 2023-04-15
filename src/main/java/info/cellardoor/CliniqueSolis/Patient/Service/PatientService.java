@@ -1,6 +1,7 @@
 package info.cellardoor.CliniqueSolis.Patient.Service;
 
 import info.cellardoor.CliniqueSolis.Patient.Http.Request.PatientRequest;
+import info.cellardoor.CliniqueSolis.Patient.Http.Response.ListPatientResponse;
 import info.cellardoor.CliniqueSolis.Patient.Http.Response.PatientResponse;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
@@ -8,10 +9,10 @@ import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import info.cellardoor.CliniqueSolis.Patient.Models.PatientRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -30,14 +31,21 @@ public class PatientService {
                 .groupeSanguin(patient.getGroupeSanguin())
                 .build();
     }
-    public PatientResponse getPatientByCin(String cin) {
-        var patient = patientRepository.findByCin(cin).orElseThrow(() -> new NoSuchElementException("Patient not found"));
-        return PatientResponse.builder()
-                .patientId(patient.getPatientId())
-                .cin(patient.getCin())
-                .groupeSanguin(patient.getGroupeSanguin())
+
+    public ListPatientResponse getByCinContaining(String cin) {
+        List<Patient> patients = patientRepository.findByCinContaining(cin);
+        if (patients.size() == 0)
+            return null;
+        return ListPatientResponse.builder()
+                .patients(patients.stream().map(patient -> PatientResponse.builder()
+                                .patientId(patient.getPatientId())
+                                .cin(patient.getCin())
+                                .groupeSanguin(patient.getGroupeSanguin())
+                                .build())
+                        .toList())
                 .build();
     }
+
     public PatientResponse createPatient(PatientRequest patientRequest) {
         var associatedUser = User.builder()
                 .nom(patientRequest.getNom())
@@ -63,24 +71,16 @@ public class PatientService {
                 .role(savedPatient.getUser().getRole().toString())
                 .build();
     }
+
     public void deletePatientById(Integer id) {
         var patient = patientRepository.findByPatientId(id)
                 .orElseThrow(() -> new NoSuchElementException("Patient not found"));
         patientRepository.delete(patient);
     }
-    public void deletePatientByCin(String cin) {
-        var patient = patientRepository.findByCin(cin)
-                .orElseThrow(() -> new NoSuchElementException("Patient not found"));
-        patientRepository.delete(patient);
-    }
+
 
     public PatientResponse updatePatientById(Integer id, PatientRequest patientRequest) {
         var patient = patientRepository.findByPatientId(id)
-                .orElseThrow(() -> new NoSuchElementException("Patient not found"));
-        return getPatientResponse(patientRequest, patient);
-    }
-    public PatientResponse updatePatientByCin(String cin, PatientRequest patientRequest) {
-        var patient = patientRepository.findByCin(cin)
                 .orElseThrow(() -> new NoSuchElementException("Patient not found"));
         return getPatientResponse(patientRequest, patient);
     }
@@ -97,7 +97,7 @@ public class PatientService {
         if (patientRequest.getEmail() != null) {
             patient.getUser().setEmail(patientRequest.getEmail());
         }
-        if(patientRequest.getRole() != null){
+        if (patientRequest.getRole() != null) {
             patient.getUser().setRole(Roles.valueOf(patientRequest.getRole()));
         }
         if (patientRequest.getNom() != null) {
@@ -116,6 +116,18 @@ public class PatientService {
                 .prenom(savedUser.getPrenom())
                 .role(String.valueOf(savedUser.getRole()))
                 .email(String.valueOf(savedUser.getEmail()))
+                .build();
+    }
+
+    public ListPatientResponse getAllPatients() {
+        var patients = patientRepository.findAll();
+        return ListPatientResponse.builder()
+                .patients(patients.stream().map(patient -> PatientResponse.builder()
+                                .patientId(patient.getPatientId())
+                                .cin(patient.getCin())
+                                .groupeSanguin(patient.getGroupeSanguin())
+                                .build())
+                        .toList())
                 .build();
     }
 }
