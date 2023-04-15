@@ -20,6 +20,11 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getPatientById(id));
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<ListPatientResponse> getAll() {
+        return ResponseEntity.ok(patientService.getAll());
+    }
+
     @GetMapping("/search")
     public ResponseEntity<ListPatientResponse> getByCinContaining(
             @RequestParam(value = "cin", required = false) String cin) {

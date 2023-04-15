@@ -121,6 +121,8 @@ public class PatientService {
 
     public ListPatientResponse getAll() {
         var patients = patientRepository.findAll();
+        if (patients.size() == 0)
+            return null;
         return ListPatientResponse.builder()
                 .patients(patients.stream().map(patient -> PatientResponse.builder()
                                 .patientId(patient.getPatientId())
