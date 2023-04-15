@@ -2,6 +2,7 @@ package info.cellardoor.CliniqueSolis.App.Seeders;
 
 
 import com.github.javafaker.Faker;
+import info.cellardoor.CliniqueSolis.App.Config.LocalizedFaker;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -10,14 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Locale;
-
 @Component
 @Order(1)
 public class UsersSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
-    private final Faker faker = new Faker(new Locale("fr", "FR"));
+    private final Faker faker = LocalizedFaker.getInstance();
     private final User admin = User.getAdminInstance("Elliot", "Alderson", "e.alderson@solis.ma", "123456");
     public UsersSeeder(UserRepository userRepository) {
         this.userRepository = userRepository;
