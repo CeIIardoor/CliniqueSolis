@@ -17,9 +17,9 @@ public class RendezVousResponse {
     @JsonProperty("rendez_vous_id")
     private Integer rendezVousId;
     @JsonProperty("patient_id")
-    private Patient patient;
+    private Integer patientId;
     @JsonProperty("medecin_id")
-    private Medecin medecin;
+    private Integer medecinId;
     @JsonProperty("date")
     private String date;
     @JsonProperty("heure")

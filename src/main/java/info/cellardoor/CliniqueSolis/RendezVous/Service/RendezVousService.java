@@ -22,9 +22,11 @@ public class RendezVousService {
         return ListRendezVousResponse.builder()
                 .rendezVous(listeRendezVous.stream().map(rendezVous -> RendezVousResponse.builder()
                                 .rendezVousId(rendezVous.getRendezVousId())
-                                .patient(rendezVous.getPatient())
-                                .medecin(rendezVous.getMedecin())
+                                .patientId(rendezVous.getPatient().getPatientId())
+                                .medecinId(rendezVous.getMedecin().getMedecinId())
                                 .date(rendezVous.getDate())
+                                .heure(rendezVous.getHeure())
+                                .duree(rendezVous.getDuree())
                                 .build())
                         .toList())
                 .build();
@@ -34,8 +36,8 @@ public class RendezVousService {
         var rendezVous = rendezVousRepository.findByDate(date).orElse(null);
         return rendezVous == null ? null : RendezVousResponse.builder()
                 .rendezVousId(rendezVous.getRendezVousId())
-                .patient(rendezVous.getPatient())
-                .medecin(rendezVous.getMedecin())
+                .patientId(rendezVous.getPatient().getPatientId())
+                .medecinId(rendezVous.getMedecin().getMedecinId())
                 .date(rendezVous.getDate())
                 .build();
 

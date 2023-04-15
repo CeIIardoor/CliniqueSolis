@@ -15,11 +15,9 @@ public class RendezVous {
     @Id
     @GeneratedValue
     private Integer rendezVousId;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "patient_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     public Patient patient;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "medecin_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     public Medecin medecin;
     private String date;
     private String heure;
