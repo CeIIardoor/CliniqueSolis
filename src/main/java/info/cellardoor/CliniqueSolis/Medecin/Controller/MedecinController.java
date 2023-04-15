@@ -30,7 +30,7 @@ public class MedecinController {
             @PathVariable("id") Integer id
     ) {
         medecinService.deleteMedecinById(id);
-        return ResponseEntity.ok("Medecin supprimé");
+        return ResponseEntity.ok("Medecin id:" + id + " supprimé");
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<MedecinResponse> updateMedecinById(

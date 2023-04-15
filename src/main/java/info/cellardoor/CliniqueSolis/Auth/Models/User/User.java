@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -36,6 +37,16 @@ public class User implements UserDetails {
         this.email = email;
         this.mdp = mdp;
         this.role = Roles.ROLE_UTILISATEUR;
+    }
+
+    private static User adminInstance = null;
+
+    public static User getAdminInstance(String nom, String prenom, String email, String mdp) {
+        if (adminInstance == null) {
+            adminInstance = new User(nom, prenom, email, new BCryptPasswordEncoder().encode(mdp));
+            adminInstance.setRole(Roles.ROLE_ADMIN);
+        }
+        return adminInstance;
     }
 
     @Override

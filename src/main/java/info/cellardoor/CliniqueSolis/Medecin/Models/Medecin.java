@@ -16,12 +16,10 @@ import lombok.NoArgsConstructor;
 public class Medecin{
     @Id @GeneratedValue
     private Integer medecinId;
-
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     public User user;
     private String specialite;
     private String diplome;
     private String cin;
-    private String disponibilite;
 }

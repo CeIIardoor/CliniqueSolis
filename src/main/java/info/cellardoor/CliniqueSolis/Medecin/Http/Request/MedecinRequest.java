@@ -17,5 +17,4 @@ public class MedecinRequest {
     private String mdp;
     private String specialite;
     private String diplome;
-    private String disponibilite;
 }

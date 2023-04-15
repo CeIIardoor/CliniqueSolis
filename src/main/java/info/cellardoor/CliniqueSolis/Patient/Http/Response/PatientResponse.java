@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 public class PatientResponse {
     @JsonProperty("patient_id")
     private Integer patientId;
+    @JsonProperty("user_id")
+    private Integer userId;
     @JsonProperty("cin")
     private String cin;
     @JsonProperty("groupe_sanguin")
     private String groupeSanguin;
-    @JsonProperty("user_id")
-    private Integer userId;
     @JsonProperty("nom")
     private String nom;
     @JsonProperty("prenom")
