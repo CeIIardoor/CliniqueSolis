@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class PatientSeeder implements CommandLineRunner {
 
     private final PatientRepository patientRepository;
-    private final Faker faker = LocalizedFakerFrench.getInstance();
+    private final Faker frenchFaker = LocalizedFakerFrench.getInstance();
 
     public PatientSeeder(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
@@ -27,10 +27,10 @@ public class PatientSeeder implements CommandLineRunner {
         int nbPatients = 5;
 
         for (int i = 0; i < nbPatients; i++) {
-            User user = UserSeeder.getSeed(faker);
+            User user = UserSeeder.getSeed(frenchFaker);
             user.setRole(Roles.ROLE_PATIENT);
 
-            Patient patient = getSeed(faker, user);
+            Patient patient = getSeed(frenchFaker, user);
 
             patientRepository.save(patient);
         }

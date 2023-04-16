@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(4)
 public class RendezVousSeeder implements CommandLineRunner {
-    private final Faker faker = LocalizedFakerFrench.getInstance();
+    private final Faker frenchFaker = LocalizedFakerFrench.getInstance();
 
     private final RendezVousRepository rendezVousRepository;
 
@@ -30,20 +30,20 @@ public class RendezVousSeeder implements CommandLineRunner {
 
         for (int i = 0; i < nbRendezVous; i++) {
 
-            User user_patient = UserSeeder.getSeed(faker);
+            User user_patient = UserSeeder.getSeed(frenchFaker);
             user_patient.setRole(Roles.ROLE_PATIENT);
-            Patient patient = PatientSeeder.getSeed(faker, user_patient);
+            Patient patient = PatientSeeder.getSeed(frenchFaker, user_patient);
 
-            User user_medecin = UserSeeder.getSeed(faker);
+            User user_medecin = UserSeeder.getSeed(frenchFaker);
             user_medecin.setRole(Roles.ROLE_MEDECIN);
-            Medecin medecin = MedecinSeeder.getSeed(faker, user_medecin);
+            Medecin medecin = MedecinSeeder.getSeed(frenchFaker, user_medecin);
 
             RendezVous rdv = RendezVous.builder()
                     .patient(patient)
                     .medecin(medecin)
-                    .duree(faker.options().option(15, 30, 45, 60))
-                    .date(String.format("%02d-%02d-%02d", faker.number().numberBetween(2023, 2024), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)))
-                    .heure(String.format("%02d:%02d", faker.number().numberBetween(8, 18), faker.options().option(0, 30)))
+                    .duree(frenchFaker.options().option(15, 30, 45, 60))
+                    .date(String.format("%02d-%02d-%02d", frenchFaker.number().numberBetween(2023, 2024), frenchFaker.number().numberBetween(1, 12), frenchFaker.number().numberBetween(1, 28)))
+                    .heure(String.format("%02d:%02d", frenchFaker.number().numberBetween(8, 18), frenchFaker.options().option(0, 30)))
                     .build();
             rendezVousRepository.save(rdv);
         }

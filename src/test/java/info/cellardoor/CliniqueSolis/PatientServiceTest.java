@@ -62,6 +62,14 @@ public class PatientServiceTest {
         userRepository.save(user);
 
         // assert the result
+        System.out.println(patient.getPatientId() + " | " + patientResponse.getPatientId());
+        System.out.println(patientRequest.getCin() + " | " + patientResponse.getCin());
+        System.out.println(patientRequest.getGroupeSanguin() + " | " + patientResponse.getGroupeSanguin());
+        System.out.println(patientRequest.getNom() + " | " + patientResponse.getNom());
+        System.out.println(patientRequest.getPrenom() + " | " + patientResponse.getPrenom());
+        System.out.println(patientRequest.getRole() + " | " + patientResponse.getRole());
+        System.out.println(patientRequest.getEmail() + " | " + patientResponse.getEmail());
+
         assertEquals(patient.getPatientId(), patientResponse.getPatientId());
         assertEquals(patientRequest.getCin(), patientResponse.getCin());
         assertEquals(patientRequest.getGroupeSanguin(), patientResponse.getGroupeSanguin());

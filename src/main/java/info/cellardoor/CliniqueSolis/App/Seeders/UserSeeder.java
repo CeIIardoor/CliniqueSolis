@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class UserSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
-    private final Faker faker = LocalizedFakerFrench.getInstance();
+    private final Faker frenchFaker = LocalizedFakerFrench.getInstance();
     private final User admin = User.getAdminInstance("Elliot", "Alderson", "e.alderson@solis.ma", "123456");
     public UserSeeder(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -29,7 +29,7 @@ public class UserSeeder implements CommandLineRunner {
         int nbUsers = 5;
 
         for (int i = 0; i < nbUsers; i++) {
-            User user = getSeed(faker);
+            User user = getSeed(frenchFaker);
             userRepository.save(user);
         }
     }
