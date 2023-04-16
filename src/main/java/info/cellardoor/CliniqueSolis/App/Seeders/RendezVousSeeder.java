@@ -35,7 +35,7 @@ public class RendezVousSeeder implements CommandLineRunner {
             Patient patient = PatientSeeder.getSeed(faker, user_patient);
 
             User user_medecin = UserSeeder.getSeed(faker);
-            user_patient.setRole(Roles.ROLE_MEDECIN);
+            user_medecin.setRole(Roles.ROLE_MEDECIN);
             Medecin medecin = MedecinSeeder.getSeed(faker, user_medecin);
 
             RendezVous rdv = RendezVous.builder()

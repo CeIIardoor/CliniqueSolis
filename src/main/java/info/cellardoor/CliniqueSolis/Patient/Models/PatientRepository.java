@@ -9,4 +9,6 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
     Optional<Patient> findByPatientId(Integer patientId);
 
     List<Patient> findByCinContaining(String cin);
+
+    Patient save(Patient patient);
 }

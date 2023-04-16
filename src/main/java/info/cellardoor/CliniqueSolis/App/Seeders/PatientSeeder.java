@@ -38,10 +38,10 @@ public class PatientSeeder implements CommandLineRunner {
 
     static Patient getSeed(Faker faker, User user) {
         String groupeSanguin = faker.options().option("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-");
-        String allergies = Math.random() > 0.5 ? faker.food().ingredient() : null;
-        String maladiesChroniques = Math.random() > 0.5 ? faker.medical().diseaseName() : null;
-        String chirurgies = Math.random() > 0.5 ? faker.medical().diseaseName() : null;
-        String antecedentsFamiliaux = Math.random() > 0.5 ? faker.medical().diseaseName() : null;
+        String allergies = Math.random() > 0.5 ? faker.food().ingredient() : "non allergique";
+        String maladiesChroniques = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas de maladies chroniques";
+        String chirurgies = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas d'informations";
+        String antecedentsFamiliaux = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas d'informations";
         String cin = faker.regexify("[A-Z]{2}[0-9]{5}");
 
         return Patient.builder()
