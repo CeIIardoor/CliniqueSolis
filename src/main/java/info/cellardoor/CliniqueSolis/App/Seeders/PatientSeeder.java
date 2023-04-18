@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class PatientSeeder implements CommandLineRunner {
 
     private final PatientRepository patientRepository;
-    private final Faker faker = LocalizedFakerFrench.getInstance();
+    private final Faker frenchFaker = LocalizedFakerFrench.getInstance();
 
     public PatientSeeder(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
@@ -27,10 +27,10 @@ public class PatientSeeder implements CommandLineRunner {
         int nbPatients = 5;
 
         for (int i = 0; i < nbPatients; i++) {
-            User user = UserSeeder.getSeed(faker);
+            User user = UserSeeder.getSeed(frenchFaker);
             user.setRole(Roles.ROLE_PATIENT);
 
-            Patient patient = getSeed(faker, user);
+            Patient patient = getSeed(frenchFaker, user);
 
             patientRepository.save(patient);
         }
@@ -38,10 +38,10 @@ public class PatientSeeder implements CommandLineRunner {
 
     static Patient getSeed(Faker faker, User user) {
         String groupeSanguin = faker.options().option("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-");
-        String allergies = Math.random() > 0.5 ? faker.food().ingredient() : null;
-        String maladiesChroniques = Math.random() > 0.5 ? faker.medical().diseaseName() : null;
-        String chirurgies = Math.random() > 0.5 ? faker.medical().diseaseName() : null;
-        String antecedentsFamiliaux = Math.random() > 0.5 ? faker.medical().diseaseName() : null;
+        String allergies = Math.random() > 0.5 ? faker.food().ingredient() : "non allergique";
+        String maladiesChroniques = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas de maladies chroniques";
+        String chirurgies = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas d'informations";
+        String antecedentsFamiliaux = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas d'informations";
         String cin = faker.regexify("[A-Z]{2}[0-9]{5}");
 
         return Patient.builder()

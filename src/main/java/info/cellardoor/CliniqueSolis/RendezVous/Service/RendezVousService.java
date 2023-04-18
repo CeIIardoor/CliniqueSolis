@@ -7,8 +7,6 @@ import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVousRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,64 +17,30 @@ public class RendezVousService {
 
     public ListRendezVousResponse getAll() {
         List<RendezVous> listeRendezVous = rendezVousRepository.findAll();
-        if (listeRendezVous.size() == 0)
-            return null;
-        return ListRendezVousResponse.builder()
-                .rendezVous(listeRendezVous.stream().map(rendezVous -> RendezVousResponse.builder()
-                                .rendezVousId(rendezVous.getRendezVousId())
-                                .patient(rendezVous.getPatient())
-                                .medecin(rendezVous.getMedecin())
-                                .date(rendezVous.getDate())
-                                .build())
-                        .toList())
-                .build();
+        return rendezVousDTO(listeRendezVous);
     }
 
-
-
-    public ListRendezVousResponse getByYear(Integer year) {
-        List<RendezVous> listeRendezVous = rendezVousRepository.findByDateBetween(Date.valueOf(LocalDate.of(year, 1, 1)), Date.valueOf(LocalDate.of(year, 12, 31)));
-        if (listeRendezVous.size() == 0)
-            return null;
-        return ListRendezVousResponse.builder()
-                .rendezVous(listeRendezVous.stream().map(rendezVous -> RendezVousResponse.builder()
-                                .rendezVousId(rendezVous.getRendezVousId())
-                                .patient(rendezVous.getPatient())
-                                .medecin(rendezVous.getMedecin())
-                                .date(rendezVous.getDate())
-                                .build())
-                        .toList())
-                .build();
+    public ListRendezVousResponse getByDate(String date) {
+        List<RendezVous> listeRendezVous = rendezVousRepository.findByDate(date);
+        return rendezVousDTO(listeRendezVous);
     }
 
-    public ListRendezVousResponse getByMonth(Integer year, Integer month) {
-        List<RendezVous> listeRendezVous = rendezVousRepository.findByDateBetween(
-                Date.valueOf(LocalDate.of(year, month, 1)),
-                Date.valueOf(LocalDate.of(year, month, 31))
-        );
-        if (listeRendezVous.size() == 0)
-            return null;
-        return ListRendezVousResponse.builder()
-                .rendezVous(listeRendezVous.stream().map(rendezVous -> RendezVousResponse.builder()
-                                .rendezVousId(rendezVous.getRendezVousId())
-                                .patient(rendezVous.getPatient())
-                                .medecin(rendezVous.getMedecin())
-                                .date(rendezVous.getDate())
-                                .build())
-                        .toList())
-                .build();
+    public ListRendezVousResponse getByPartialDate(String date) {
+        List<RendezVous> listeRendezVous = rendezVousRepository.findByDateStartingWith(date);
+        return rendezVousDTO(listeRendezVous);
     }
 
-    public ListRendezVousResponse getByDate(Integer year, Integer month, Integer day) {
-        List<RendezVous> listeRendezVous = rendezVousRepository.findByDate(Date.valueOf(LocalDate.of(year, month, day)));
+    private ListRendezVousResponse rendezVousDTO(List<RendezVous> listeRendezVous) {
         if (listeRendezVous.size() == 0)
             return null;
         return ListRendezVousResponse.builder()
                 .rendezVous(listeRendezVous.stream().map(rendezVous -> RendezVousResponse.builder()
                                 .rendezVousId(rendezVous.getRendezVousId())
-                                .patient(rendezVous.getPatient())
-                                .medecin(rendezVous.getMedecin())
+                                .patientId(rendezVous.getPatient().getPatientId())
+                                .medecinId(rendezVous.getMedecin().getMedecinId())
                                 .date(rendezVous.getDate())
+                                .heure(rendezVous.getHeure())
+                                .duree(rendezVous.getDuree())
                                 .build())
                         .toList())
                 .build();

@@ -13,26 +13,28 @@ public class RendezVousController {
 
     private final RendezVousService rendezVousService;
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<ListRendezVousResponse> getAll() {
         return ResponseEntity.ok(rendezVousService.getAll());
     }
 
-    @GetMapping("/date/{year}/{month}/{day}")
+    @GetMapping("/filtrerParDate")
     public ResponseEntity<ListRendezVousResponse> getByDate(
-            @PathVariable("year") Integer year,
-            @PathVariable("month") Integer month,
-            @PathVariable("day") Integer day
+            @RequestParam(value = "annee", required = false) Integer annee,
+            @RequestParam(value = "mois", required = false) Integer mois,
+            @RequestParam(value = "jour", required = false) Integer jour
     ) {
-        if (year != null)
-            if (month != null)
-                if (day != null)
-                    return ResponseEntity.ok(rendezVousService.getByDate(year, month, day));
-                else
-                    return ResponseEntity.ok(rendezVousService.getByMonth(year,month));
-            else
-                return ResponseEntity.ok(rendezVousService.getByYear(year));
+        if (jour == null){
+            if (mois == null){
+                if (annee == null)
+                    return ResponseEntity.ok(rendezVousService.getAll());
+                return ResponseEntity.ok(rendezVousService.getByPartialDate(annee.toString()));
+            }
+            return ResponseEntity.ok(rendezVousService.getByPartialDate(annee + "-" + String.format("%02d", mois)));
+        }
+        if (annee == null || mois == null)
+            return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok(rendezVousService.getAll());
+        return ResponseEntity.ok(rendezVousService.getByDate(annee + "-" + String.format("%02d", mois) + "-" + String.format("%02d", jour)));
     }
 }
