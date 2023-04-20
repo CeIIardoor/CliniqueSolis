@@ -46,15 +46,14 @@ public class RendezVousController {
     @PostMapping("/createRDV")
     public ResponseEntity<RendezVousResponse> createRendezVous(@RequestBody RendezVousRequest rendezVousRequest) {
         RendezVous rendezVous = rendezVousService.createRendezVous(rendezVousRequest);
-        return ResponseEntity.created(URI.create("/api/rendezvous/" + rendezVous.getRendezVousId()))
-                .body(RendezVousResponse.builder()
-                        .rendezVousId(rendezVous.getRendezVousId())
-                        .patientId(rendezVous.getPatient().getPatientId())
-                        .medecinId(rendezVous.getMedecin().getMedecinId())
-                        .date(rendezVous.getDate())
-                        .heure(rendezVous.getHeure())
-                        .duree(rendezVous.getDuree())
-                        .build());
+        return ResponseEntity.ok(RendezVousResponse.builder()
+                .rendezVousId(rendezVous.getRendezVousId())
+                .patientId(rendezVous.getPatient().getPatientId())
+                .medecinId(rendezVous.getMedecin().getMedecinId())
+                .date(rendezVous.getDate())
+                .heure(rendezVous.getHeure())
+                .duree(rendezVous.getDuree())
+                .build());
     }
     @PutMapping("updateRDV/{id}")
     public ResponseEntity<RendezVousResponse> updateRendezVous(@PathVariable("id") Integer rendezVousId,
