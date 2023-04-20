@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "devis")
 
 public class Devis {
-
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer devisId;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

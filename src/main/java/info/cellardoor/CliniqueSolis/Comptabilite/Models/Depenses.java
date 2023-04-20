@@ -20,9 +20,9 @@ import java.util.List;
 public class Depenses {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer depensesId;
+    private Integer depenseId;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "devis_id")
+    @JoinColumn(name = "devisId")
     private List<Devis> devisList ;
 
 

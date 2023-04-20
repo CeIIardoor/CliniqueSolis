@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Facture {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer factureId;
-    @JoinColumn(name="patient_d")
+    @JoinColumn(name="patientId")
     private Long patientId;
     private Long montant ;
     private String type_service;

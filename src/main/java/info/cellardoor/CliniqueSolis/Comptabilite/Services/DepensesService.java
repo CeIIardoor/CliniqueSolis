@@ -7,11 +7,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class DepensesService {
 
 
