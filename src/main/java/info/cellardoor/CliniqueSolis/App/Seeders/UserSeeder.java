@@ -17,6 +17,8 @@ public class UserSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
     private final Faker frenchFaker = LocalizedFakerFrench.getInstance();
     private final User admin = User.getAdminInstance("Elliot", "Alderson", "e.alderson@solis.ma", "123456");
+    private final User defaultUser = User.getUserInstance("Laouina", "Yassine", "l.yassine@solis.ma", "123456");
+
     public UserSeeder(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -25,6 +27,7 @@ public class UserSeeder implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         userRepository.save(admin);
+        userRepository.save(defaultUser);
 
         int nbUsers = 5;
 
