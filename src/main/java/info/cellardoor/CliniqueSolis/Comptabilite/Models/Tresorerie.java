@@ -1,20 +1,18 @@
 package info.cellardoor.CliniqueSolis.Comptabilite.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Tresorerie")
+@Table(name = "tresorerie")
 
 public class Tresorerie {
 
-    @Id
-    private Integer id;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer tresorerieId;
     public static long capital ;
 
 

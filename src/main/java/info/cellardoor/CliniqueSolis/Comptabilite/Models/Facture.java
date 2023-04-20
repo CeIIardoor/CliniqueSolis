@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Facture")
+@Table(name = "facture")
 
 public class Facture {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long facture_id;
-    @JoinColumn(name="patientId")
+    private Integer factureId;
+    @JoinColumn(name="patient_d")
     private Long patientId;
     private Long montant ;
     private String type_service;

@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Fournisseur")
+@Table(name = "fournisseur")
 
 public class Fournisseur {
 
-    @Id @GeneratedValue
-    private Integer fournisseur_id;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer fournisseurId;
     private String nom_societe;
     private String email;
 

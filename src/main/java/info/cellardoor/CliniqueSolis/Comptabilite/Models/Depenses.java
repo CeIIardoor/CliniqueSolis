@@ -15,12 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table(name = "Depenses")
+@Table(name = "depenses")
 
 public class Depenses {
 
-    @Id
-    private Integer id_revenu;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer depensesId;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "devis_id")
     private List<Devis> devisList ;

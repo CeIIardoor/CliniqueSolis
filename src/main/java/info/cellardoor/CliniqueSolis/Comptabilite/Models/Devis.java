@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Devis")
+@Table(name = "devis")
 
 public class Devis {
 
-    @Id @GeneratedValue
-    private Integer devis_id;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer devisId;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "fournisseur_id")
     private  Fournisseur fournisseur;
