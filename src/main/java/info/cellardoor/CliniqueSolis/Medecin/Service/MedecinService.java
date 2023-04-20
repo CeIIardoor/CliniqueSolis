@@ -28,7 +28,6 @@ public class MedecinService {
                 .cin(medecin.getCin())
                 .specialite(medecin.getSpecialite())
                 .diplome(medecin.getDiplome())
-                .disponibilite(medecin.getDisponibilite())
                 .build();
     }
     public MedecinResponse createMedecin(MedecinRequest medecinRequest) {
@@ -43,7 +42,6 @@ public class MedecinService {
                 .cin(medecinRequest.getCin())
                 .specialite(medecinRequest.getSpecialite())
                 .diplome(medecinRequest.getDiplome())
-                .disponibilite(medecinRequest.getDisponibilite())
                 .user(associatedUser)
                 .build();
         var savedMedecin = medecinRepository.save(medecin);
@@ -52,7 +50,6 @@ public class MedecinService {
                 .cin(savedMedecin.getCin())
                 .specialite(savedMedecin.getSpecialite())
                 .diplome(savedMedecin.getDiplome())
-                .disponibilite(savedMedecin.getDisponibilite())
                 .userId(savedMedecin.getUser().getUserId())
                 .nom(savedMedecin.getUser().getNom())
                 .prenom(savedMedecin.getUser().getPrenom())
@@ -75,7 +72,6 @@ public class MedecinService {
         medecin.setCin(medecinRequest.getCin());
         medecin.setSpecialite(medecinRequest.getSpecialite());
         medecin.setDiplome(medecinRequest.getDiplome());
-        medecin.setDisponibilite(medecinRequest.getDisponibilite());
         var savedUser = userRepository.save(user);
         var savedMedecin = medecinRepository.save(medecin);
         return MedecinResponse.builder()
@@ -83,7 +79,6 @@ public class MedecinService {
                 .cin(savedMedecin.getCin())
                 .specialite(savedMedecin.getSpecialite())
                 .diplome(savedMedecin.getDiplome())
-                .disponibilite(savedMedecin.getDisponibilite())
                 .userId(savedUser.getUserId())
                 .nom(savedUser.getNom())
                 .prenom(savedUser.getPrenom())
