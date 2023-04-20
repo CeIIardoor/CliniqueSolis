@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "facture")
-
+@Table(name = "Factures")
 public class Facture {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer factureId;

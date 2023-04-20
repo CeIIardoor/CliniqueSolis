@@ -1,9 +1,8 @@
 package info.cellardoor.CliniqueSolis.Comptabilite.Models.repositories;
 
-import info.cellardoor.CliniqueSolis.Comptabilite.Controllers.DevisController;
-import info.cellardoor.CliniqueSolis.Comptabilite.Models.Depenses;
+import info.cellardoor.CliniqueSolis.Comptabilite.Models.Depense;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DepensesRepository extends JpaRepository<Depenses, Integer> {
+public interface DepensesRepository extends JpaRepository<Depense, Integer> {
 
 }

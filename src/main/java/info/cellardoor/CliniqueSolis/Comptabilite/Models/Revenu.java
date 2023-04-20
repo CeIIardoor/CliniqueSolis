@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "revenus")
 
-public class Revenus {
+public class Revenu {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer revenuId;
 }
