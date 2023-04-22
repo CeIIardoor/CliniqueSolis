@@ -1,8 +1,10 @@
 package info.cellardoor.CliniqueSolis.Medecin.Controller;
 
 import info.cellardoor.CliniqueSolis.Medecin.Http.Request.MedecinRequest;
+import info.cellardoor.CliniqueSolis.Medecin.Http.Response.ListMedecinResponse;
 import info.cellardoor.CliniqueSolis.Medecin.Http.Response.MedecinResponse;
 import info.cellardoor.CliniqueSolis.Medecin.Service.MedecinService;
+import info.cellardoor.CliniqueSolis.Patient.Http.Response.ListPatientResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,10 @@ public class MedecinController {
             @RequestBody MedecinRequest medecinRequest
     ) {
         return ResponseEntity.ok(medecinService.createMedecin(medecinRequest));
+    }
+    @GetMapping("/all")
+    public ResponseEntity<ListMedecinResponse> getAll() {
+        return ResponseEntity.ok(medecinService.getAll());
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteMedecinById(
