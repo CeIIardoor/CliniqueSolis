@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/demo-controller")
 public class DemoController {
         @RequestMapping("/user")
-        @PreAuthorize("hasRole('ROLE_ADMIN')")
+        @PreAuthorize("hasRole('ROLE_UTILISATEUR')")
         public ResponseEntity<String> helloUser() {
             ObjectMapper objectMapper = new ObjectMapper();
             String message = "Hello User from secure controller!";
