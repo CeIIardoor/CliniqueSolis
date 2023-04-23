@@ -7,6 +7,9 @@ import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import info.cellardoor.CliniqueSolis.Medecin.Models.Medecin;
 import info.cellardoor.CliniqueSolis.Medecin.Models.MedecinRepository;
+import info.cellardoor.CliniqueSolis.Patient.Http.Response.ListPatientResponse;
+import info.cellardoor.CliniqueSolis.Patient.Http.Response.PatientResponse;
+import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -14,6 +17,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -52,7 +56,6 @@ public class MedecinService {
                 .cin(savedMedecin.getCin())
                 .specialite(savedMedecin.getSpecialite())
                 .diplome(savedMedecin.getDiplome())
-                .userId(savedMedecin.getUser().getUserId())
                 .nom(savedMedecin.getUser().getNom())
                 .prenom(savedMedecin.getUser().getPrenom())
                 .email(savedMedecin.getUser().getEmail())
@@ -82,9 +85,26 @@ public class MedecinService {
                 .cin(savedMedecin.getCin())
                 .specialite(savedMedecin.getSpecialite())
                 .diplome(savedMedecin.getDiplome())
-                .userId(savedUser.getUserId())
                 .nom(savedUser.getNom())
                 .prenom(savedUser.getPrenom())
+                .build();
+    }
+    public ListMedecinResponse findByCinStartingWith(String cin) {
+        List<Medecin> medecins = medecinRepository.findByCinStartingWith(cin);
+        if (medecins.size() == 0)
+            return null;
+        return ListMedecinResponse.builder()
+                .medecins(medecins.stream().map(medecin -> MedecinResponse.builder()
+                                .medecinId(medecin.getMedecinId())
+                                .nom(medecin.getUser().getNom())
+                                .prenom(medecin.getUser().getPrenom())
+                                .cin(medecin.getCin())
+                                .email(medecin.getUser().getEmail())
+                                .role(medecin.getUser().getRole().toString())
+                                .specialite(medecin.getSpecialite())
+                                .diplome(medecin.getDiplome())
+                                .build())
+                        .toList())
                 .build();
     }
 

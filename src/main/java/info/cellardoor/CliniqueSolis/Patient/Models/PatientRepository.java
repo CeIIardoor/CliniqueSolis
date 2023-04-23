@@ -8,7 +8,8 @@ import java.util.Optional;
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
     Optional<Patient> findByPatientId(Integer patientId);
 
-    List<Patient> findByCinContaining(String cin);
 
     Patient save(Patient patient);
+
+    List<Patient> findByCinStartingWith(String cin);
 }

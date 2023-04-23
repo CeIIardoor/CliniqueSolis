@@ -30,6 +30,14 @@ public class MedecinController {
     public ResponseEntity<ListMedecinResponse> getAll() {
         return ResponseEntity.ok(medecinService.getAll());
     }
+    @GetMapping("/search")
+    public ResponseEntity<ListMedecinResponse> getByCinStartingWith(
+            @RequestParam(value = "cin", required = false) String cin) {
+        if (cin == null) {
+            return ResponseEntity.ok(medecinService.getAll());
+        }
+        return ResponseEntity.ok(medecinService.findByCinStartingWith(cin));
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteMedecinById(
 
