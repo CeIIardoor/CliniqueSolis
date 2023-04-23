@@ -19,8 +19,6 @@ public class MedecinResponse {
     private String specialite;
     @JsonProperty("diplome")
     private String diplome;
-    @JsonProperty("user_id")
-    private Integer userId;
     @JsonProperty("nom")
     private String nom;
     @JsonProperty("prenom")

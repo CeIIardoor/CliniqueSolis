@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class RendezVousRequest {
     private String date;
     private String heure;
-    private String medecinId;
-    private String patientId;
+    private Integer duree;
+    private Integer medecinId;
+    private Integer patientId;
 }
