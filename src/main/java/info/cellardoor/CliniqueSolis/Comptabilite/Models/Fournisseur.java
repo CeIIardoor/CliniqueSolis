@@ -14,10 +14,8 @@ public class Fournisseur {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer fournisseurId;
-    private String nom_fournisseur;
-    private String prenom_fournisseur;
+    private String nom;
+    private String prenom;
     private String nom_societe;
     private String email;
-
-
 }

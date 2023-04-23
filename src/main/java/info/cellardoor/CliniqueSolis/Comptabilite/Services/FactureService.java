@@ -25,7 +25,6 @@ public class FactureService {
         var facture= factureRepository.findById(id).orElseThrow(() ->new NoSuchElementException("non facture trouve"));
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
-                .nom_patient(facture.getNom_patient())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
@@ -34,13 +33,11 @@ public class FactureService {
     public FactureResponse createFacture(FactureRequest factureRequest ){
 
         var facture = Facture.builder()
-                .nom_patient(factureRequest.getNom_patient())
                 .montant(factureRequest.getMontant())
                 .type_service(factureRequest.getType_service()).build();
         factureRepository.save(facture);
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
-                .nom_patient(facture.getNom_patient())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
@@ -51,7 +48,6 @@ public class FactureService {
         factureRepository.delete(facture);
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
-                .nom_patient(facture.getNom_patient())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
@@ -59,13 +55,11 @@ public class FactureService {
     }
     public FactureResponse updateFactureById(Integer id, FactureRequest factureRequest) {
         var facture= factureRepository.findById(id).orElseThrow(() ->new NoSuchElementException("non facture trouve"));
-        facture.setNom_patient(factureRequest.getNom_patient());
         facture.setMontant(factureRequest.getMontant());
         facture.setType_service(factureRequest.getType_service());
         factureRepository.save(facture);
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
-                .nom_patient(facture.getNom_patient())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();

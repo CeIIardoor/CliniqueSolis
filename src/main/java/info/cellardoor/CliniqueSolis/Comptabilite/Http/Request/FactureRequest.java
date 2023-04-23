@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 @Data
 public class FactureRequest {
-    private Integer nom_patient;
+    private Integer nom;
     private Long montant ;
     private String type_service;
 }

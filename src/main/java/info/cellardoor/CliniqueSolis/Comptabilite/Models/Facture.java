@@ -20,8 +20,6 @@ public class Facture {
     private Integer patientId;
     @OneToOne(cascade = CascadeType.ALL)
     private Patient patient;
-    @JoinColumn(name="nom")
-    private Integer nom_patient;
     @OneToOne(cascade = CascadeType.ALL)
     private Medecin medecin;
     private Long montant ;

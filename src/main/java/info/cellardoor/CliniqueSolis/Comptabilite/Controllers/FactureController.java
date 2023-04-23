@@ -3,8 +3,6 @@ package info.cellardoor.CliniqueSolis.Comptabilite.Controllers;
 import info.cellardoor.CliniqueSolis.Comptabilite.Http.Request.FactureRequest;
 import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse;
 import info.cellardoor.CliniqueSolis.Comptabilite.Services.FactureService;
-import info.cellardoor.CliniqueSolis.Medecin.Http.Request.MedecinRequest;
-import info.cellardoor.CliniqueSolis.Medecin.Http.Response.MedecinResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class FactureController {
     private final FactureService factureService;
     @GetMapping("/{id}")
-    public ResponseEntity<FactureResponse> getMedecinById(
+    public ResponseEntity<FactureResponse> getFactureById(
             @PathVariable("id") Integer id)
     {
         return ResponseEntity.ok(factureService.getFactureById(id));
@@ -28,7 +26,7 @@ public class FactureController {
         return ResponseEntity.ok(factureService.createFacture(factureRequest));
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteMedecinById(
+    public ResponseEntity<String> deleteFactureById(
 
             @PathVariable("id") Integer id
     ) {
@@ -36,7 +34,7 @@ public class FactureController {
         return ResponseEntity.ok("Medecin id:" + id + " supprimé");
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<FactureResponse> updateMedecinById(
+    public ResponseEntity<FactureResponse> updateFactureById(
             @PathVariable("id") Integer id,
             @RequestBody FactureRequest factureRequest
     ) {
