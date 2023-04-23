@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.Comptabilite.Http.Request;
+package info.cellardoor.CliniqueSolis.Comptabilite.Http.Request.FactureRequest;
 
 import jakarta.persistence.JoinColumn;
 import lombok.Builder;

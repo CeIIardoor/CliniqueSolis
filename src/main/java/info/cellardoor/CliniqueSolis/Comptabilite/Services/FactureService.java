@@ -1,7 +1,8 @@
 package info.cellardoor.CliniqueSolis.Comptabilite.Services;
 
-import info.cellardoor.CliniqueSolis.Comptabilite.Http.Request.FactureRequest;
-import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse;
+import info.cellardoor.CliniqueSolis.Comptabilite.Http.Request.FactureRequest.FactureRequest;
+import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse.FactureResponse;
+import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse.ListFactureResponse;
 import info.cellardoor.CliniqueSolis.Comptabilite.Models.Facture;
 import info.cellardoor.CliniqueSolis.Comptabilite.Models.repositories.FactureRepository;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class FactureService {
         var facture= factureRepository.findById(id).orElseThrow(() ->new NoSuchElementException("non facture trouve"));
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
+                .nom(facture.getPatient().getUser().getNom())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
@@ -38,6 +40,7 @@ public class FactureService {
         factureRepository.save(facture);
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
+                .nom(facture.getPatient().getUser().getNom())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
@@ -48,6 +51,7 @@ public class FactureService {
         factureRepository.delete(facture);
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
+                .nom(facture.getPatient().getUser().getNom())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
@@ -60,9 +64,25 @@ public class FactureService {
         factureRepository.save(facture);
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
+                .nom(facture.getPatient().getUser().getNom())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
 
+    }
+
+    public ListFactureResponse getAllFacture() {
+        var factures = factureRepository.findAll();
+        if (factures.size() == 0)
+            return null;
+        return ListFactureResponse.builder()
+                .factures(factures.stream().map(facture -> FactureResponse.builder()
+                                .factureId(facture.getFactureId())
+                                .montant(facture.getMontant())
+                                .nom(facture.getPatient().getUser().getNom())
+                                .type_service(facture.getType_service())
+                                .build())
+                        .toList())
+                .build();
     }
 }

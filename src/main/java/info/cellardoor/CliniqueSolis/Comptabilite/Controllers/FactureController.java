@@ -1,7 +1,8 @@
 package info.cellardoor.CliniqueSolis.Comptabilite.Controllers;
 
-import info.cellardoor.CliniqueSolis.Comptabilite.Http.Request.FactureRequest;
-import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse;
+import info.cellardoor.CliniqueSolis.Comptabilite.Http.Request.FactureRequest.FactureRequest;
+import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse.FactureResponse;
+import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse.ListFactureResponse;
 import info.cellardoor.CliniqueSolis.Comptabilite.Services.FactureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class FactureController {
             @PathVariable("id") Integer id
     ) {
         factureService.deleteFactureById(id);
-        return ResponseEntity.ok("Medecin id:" + id + " supprimé");
+        return ResponseEntity.ok("facture id:" + id + " supprimé");
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<FactureResponse> updateFactureById(
@@ -40,7 +41,10 @@ public class FactureController {
     ) {
         return ResponseEntity.ok(factureService.updateFactureById(id, factureRequest));
     }
-
+    @GetMapping("/allfacture")
+    public ResponseEntity<ListFactureResponse> getAllFacture() {
+        return ResponseEntity.ok(factureService.getAllFacture());
+    }
 
 
 }

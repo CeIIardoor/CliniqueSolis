@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.Comptabilite.Http.Response;
+package info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.GeneratedValue;
@@ -15,19 +15,17 @@ import lombok.NoArgsConstructor;
 
 
 public class FactureResponse {
-    @JsonProperty("patient_id")
+
+    @JsonProperty("factureId")
     private Integer factureId;
-    @JsonProperty("nom")
 
-    private String nom;
     @JsonProperty("nom_patient")
+    private String nom;
 
-    private Integer nom_patient;
     @JsonProperty("montant")
-
     private Long montant ;
-    @JsonProperty("type_service")
 
+    @JsonProperty("type_service")
     private String type_service;
 
 
