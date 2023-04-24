@@ -14,4 +14,5 @@ public class CliniqueSolisApplication {
 //			System.out.println(name);
 //		}
 	}
+
 }
