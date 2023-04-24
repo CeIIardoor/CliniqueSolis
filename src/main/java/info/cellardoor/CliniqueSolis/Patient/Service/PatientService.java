@@ -38,8 +38,8 @@ public class PatientService {
                 .build();
     }
 
-    public ListPatientResponse getByCinContaining(String cin) {
-        List<Patient> patients = patientRepository.findByCinContaining(cin);
+    public ListPatientResponse findByCinStartingWith(String cin) {
+        List<Patient> patients = patientRepository.findByCinStartingWith(cin);
         if (patients.size() == 0)
             return null;
         return ListPatientResponse.builder()
@@ -144,4 +144,5 @@ public class PatientService {
                         .toList())
                 .build();
     }
+
 }
