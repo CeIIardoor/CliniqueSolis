@@ -28,11 +28,12 @@ public class Consultation {
     @JoinColumn(name = "medecin_id")
     private Medecin medecin;
 
-    @OneToOne(mappedBy = "consultation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private RendezVous rendezVous;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rendez_vous_id")
+    private RendezVous rendezVousId;
 
     @Column(name = "date_consultation")
-    private Date dateConsultation;
+        private Date dateConsultation;
 
     @Column(name = "description")
     private String description;

@@ -70,7 +70,7 @@ public class ConsultationService {
                 .orElseThrow(() -> new NoSuchElementException("Consultation   non trouvé"));
         return ConsultationResponse.builder()
                 .consultationId(cn.getConsultationId())
-                .rendezVousId(cn.getRendezVous().getRendezVousId())
+                .rendezVousId(cn.getRendezVousId().getRendezVousId())
                 .observations(cn.getDescription())
                 .build();
     }
@@ -81,14 +81,14 @@ public class ConsultationService {
         Consultation consultation = Consultation.builder()
                 .patient(patient)
                 .medecin(medecin)
-                .rendezVous(rendezVous)
+                .rendezVousId(rendezVous)
                 .dateConsultation(consultationRequest.getDateConsultation())
                 .description(consultationRequest.getObservations())
                 .build();
         consultationRepository.save(consultation);
         return ConsultationResponse.builder()
                 .consultationId(consultation.getConsultationId())
-                .rendezVousId(consultation.getRendezVous().getRendezVousId())
+                .rendezVousId(consultation.getRendezVousId().getRendezVousId())
                 .observations(consultation.getDescription())
                 .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
                         .medicament(prescription.getMedicament())
@@ -101,12 +101,12 @@ public class ConsultationService {
                 .orElseThrow(() -> new NoSuchElementException("Consultation   non trouvé"));
         cn.setPatient(getPatientById(consultationRequest.getPatientId()));
         cn.setMedecin(getMedecinById(consultationRequest.getMedecinId()));
-        cn.setRendezVous(getRendezVousById(consultationRequest.getRendezVousId()));
+        cn.setRendezVousId(getRendezVousById(consultationRequest.getRendezVousId()));
         cn.setDescription(consultationRequest.getObservations());
         var savedConsultation = consultationRepository.save(cn);
         return ConsultationResponse.builder()
                 .consultationId(savedConsultation.getConsultationId())
-                .rendezVousId(savedConsultation.getRendezVous().getRendezVousId())
+                .rendezVousId(savedConsultation.getRendezVousId().getRendezVousId())
                 .observations(savedConsultation.getDescription())
                 .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
                         .medicament(prescription.getMedicament())
@@ -124,7 +124,7 @@ public class ConsultationService {
         var savedRdv = consultationRepository.save(consultation);
         return ConsultationResponse.builder()
                 .consultationId(savedRdv.getConsultationId())
-                .rendezVousId(savedRdv.getRendezVous().getRendezVousId())
+                .rendezVousId(savedRdv.getRendezVousId().getRendezVousId())
                 .observations(savedRdv.getDescription())
                 .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
                         .medicament(prescription.getMedicament())
