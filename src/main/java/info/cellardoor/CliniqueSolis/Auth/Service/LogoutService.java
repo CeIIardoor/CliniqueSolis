@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,8 @@ public class LogoutService implements LogoutHandler {
             storedToken.setRevoked(true);
             tokenRepository.save(storedToken);
             SecurityContextHolder.clearContext();
+        } else {
+            throw new UsernameNotFoundException("Cannot find a User with this token");
         }
     }
 }
