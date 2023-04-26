@@ -13,5 +13,5 @@ public class PrescriptionResponse {
     @JsonProperty("medicament")
     private String medicament;
     @JsonProperty("duree")
-    private String duree;
+    private Integer duree;
 }

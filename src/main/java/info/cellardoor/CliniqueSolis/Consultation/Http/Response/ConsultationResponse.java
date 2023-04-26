@@ -17,7 +17,7 @@ public class ConsultationResponse {
     @JsonProperty("observations")
     private String observations;
     @JsonProperty("date_consultation")
-    private Date dateConsultation;
+    private String dateConsultation;
     @JsonProperty("prescriptions")
     private List<PrescriptionResponse> prescriptions;
 

@@ -25,17 +25,10 @@ public class ConsultationSeeder implements CommandLineRunner {
     private final Faker frenchFaker = LocalizedFakerFrench.getInstance();
 
     private final ConsultationRepository consultationRepository;
-    private final MedecinRepository medecinRepository;
-    private final PatientRepository patientRepository;
     private final RendezVousRepository rendezVousRepository;
 
-    public ConsultationSeeder(ConsultationRepository consultationRepository,
-                              MedecinRepository medecinRepository,
-                              PatientRepository patientRepository,
-                              RendezVousRepository rendezVousRepository) {
+    public ConsultationSeeder(ConsultationRepository consultationRepository, RendezVousRepository rendezVousRepository) {
         this.consultationRepository = consultationRepository;
-        this.medecinRepository = medecinRepository;
-        this.patientRepository = patientRepository;
         this.rendezVousRepository = rendezVousRepository;
     }
 
@@ -46,20 +39,16 @@ public class ConsultationSeeder implements CommandLineRunner {
 
         for (int i = 0; i < nbConsultations; i++) {
 
-            // Obtenir un médecin, un patient et un rendez-vous existants dans la base de données
-            List<Medecin> medecins = medecinRepository.findAll();
-            Medecin medecin = medecins.get(frenchFaker.number().numberBetween(0, medecins.size()));
-            List<Patient> patients = patientRepository.findAll();
-            Patient patient = patients.get(frenchFaker.number().numberBetween(0, patients.size()));
+
             List<RendezVous> rendezVousList = rendezVousRepository.findAll();
             RendezVous rendezVous = rendezVousList.get(frenchFaker.number().numberBetween(0, rendezVousList.size()));
 
             // Créer une consultation
             Consultation consultation = Consultation.builder()
-                    .medecin(medecin)
-                    .patient(patient)
+                    .consultationId(i + 1)
                     .rendezVousId(rendezVous)
                     .description(frenchFaker.lorem().sentence())
+                    .dateConsultation(String.format("%02d-%02d-%02d", frenchFaker.number().numberBetween(2023, 2024), frenchFaker.number().numberBetween(1, 12), frenchFaker.number().numberBetween(1, 28)))
                     .build();
             consultationRepository.save(consultation);
         }

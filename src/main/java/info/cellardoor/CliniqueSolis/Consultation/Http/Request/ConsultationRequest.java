@@ -16,7 +16,7 @@ public class ConsultationRequest {
     private Integer medecinId;
     private Integer patientId;
     private String observations;
-    private Date dateConsultation;
+    private String dateConsultation;
     private List<PrescriptionRequest> prescriptions;
 
 }

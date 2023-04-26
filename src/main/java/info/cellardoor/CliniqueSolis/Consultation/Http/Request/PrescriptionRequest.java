@@ -9,5 +9,5 @@ import lombok.*;
 public class PrescriptionRequest {
     private Integer prescriptionId;
     private String medicament;
-    private String duree;
+    private Integer duree;
 }

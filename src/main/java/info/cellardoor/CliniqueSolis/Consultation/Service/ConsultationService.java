@@ -7,6 +7,7 @@ import info.cellardoor.CliniqueSolis.Consultation.Http.Response.ListConsultation
 import info.cellardoor.CliniqueSolis.Consultation.Http.Response.PrescriptionResponse;
 import info.cellardoor.CliniqueSolis.Consultation.Models.Consultation;
 import info.cellardoor.CliniqueSolis.Consultation.Models.ConsultationRepository;
+import info.cellardoor.CliniqueSolis.Consultation.Models.Prescription;
 import info.cellardoor.CliniqueSolis.Medecin.Models.Medecin;
 import info.cellardoor.CliniqueSolis.Medecin.Models.MedecinRepository;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
@@ -31,32 +32,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ConsultationService {
     public final ConsultationRepository consultationRepository;
-    public final MedecinRepository medecinRepository;
-    public final PatientRepository patientRepository;
     public final RendezVousRepository rendezVousRepository;
 
     @Autowired
-    public ConsultationService(MedecinRepository medecinRepository, PatientRepository patientRepository,
-                               RendezVousRepository rendezVousRepository, ConsultationRepository consultationRepository) {
-        this.medecinRepository = medecinRepository;
-        this.patientRepository = patientRepository;
+    public ConsultationService(RendezVousRepository rendezVousRepository, ConsultationRepository consultationRepository) {
         this.rendezVousRepository = rendezVousRepository;
         this.consultationRepository = consultationRepository;
-    }
-    private Patient getPatientById(Integer patientId) {
-        Optional<Patient> patient = patientRepository.findById(patientId);
-        if (patient.isEmpty()) {
-            throw new IllegalArgumentException("Patient not found");
-        }
-        return patient.get();
-    }
-
-    private Medecin getMedecinById(Integer medecinId) {
-        Optional<Medecin> medecin = medecinRepository.findById(medecinId);
-        if (medecin.isEmpty()) {
-            throw new IllegalArgumentException("Medecin not found");
-        }
-        return medecin.get();
     }
     private RendezVous getRendezVousById(Integer rendezVousId) {
         Optional<RendezVous> rendezVous = rendezVousRepository.findById(rendezVousId);
@@ -72,46 +53,56 @@ public class ConsultationService {
                 .consultationId(cn.getConsultationId())
                 .rendezVousId(cn.getRendezVousId().getRendezVousId())
                 .observations(cn.getDescription())
+                .dateConsultation(cn.getDateConsultation())
+//                .prescriptions(cn.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
+//                        .prescriptionId(prescription.getPrescriptionId())
+//                        .medicament(prescription.getMedicament())
+//                        .duree(prescription.getDuree())
+//                        .build()).collect(Collectors.toList()))
                 .build();
     }
     public ConsultationResponse createConsultation(ConsultationRequest consultationRequest) {
-        Patient patient = getPatientById(consultationRequest.getPatientId());
-        Medecin medecin = getMedecinById(consultationRequest.getMedecinId());
         RendezVous rendezVous = getRendezVousById(consultationRequest.getRendezVousId());
         Consultation consultation = Consultation.builder()
-                .patient(patient)
-                .medecin(medecin)
+                .consultationId(consultationRequest.getConsultationId())
                 .rendezVousId(rendezVous)
                 .dateConsultation(consultationRequest.getDateConsultation())
                 .description(consultationRequest.getObservations())
+//                .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> Prescription.builder()
+//                        .prescriptionId(prescription.getPrescriptionId())
+//                        .medicament(prescription.getMedicament())
+//                        .duree(prescription.getDuree())
+//                        .build()).collect(Collectors.toList()))
                 .build();
         consultationRepository.save(consultation);
         return ConsultationResponse.builder()
                 .consultationId(consultation.getConsultationId())
                 .rendezVousId(consultation.getRendezVousId().getRendezVousId())
                 .observations(consultation.getDescription())
-                .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
-                        .medicament(prescription.getMedicament())
-                        .duree(prescription.getDuree())
-                        .build()).collect(Collectors.toList()))
+                .dateConsultation(consultation.getDateConsultation())
+//                .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
+//                        .medicament(prescription.getMedicament())
+//                        .duree(prescription.getDuree())
+//                        .build()).collect(Collectors.toList()))
                 .build();
     }
     public ConsultationResponse  updateConsultationById(Integer id, ConsultationRequest consultationRequest) {
         var cn = consultationRepository.findByRendezVousId(id)
                 .orElseThrow(() -> new NoSuchElementException("Consultation   non trouvé"));
-        cn.setPatient(getPatientById(consultationRequest.getPatientId()));
-        cn.setMedecin(getMedecinById(consultationRequest.getMedecinId()));
+        cn.setConsultationId(consultationRequest.getConsultationId());
+        cn.setDateConsultation(consultationRequest.getDateConsultation());
         cn.setRendezVousId(getRendezVousById(consultationRequest.getRendezVousId()));
         cn.setDescription(consultationRequest.getObservations());
         var savedConsultation = consultationRepository.save(cn);
         return ConsultationResponse.builder()
-                .consultationId(savedConsultation.getConsultationId())
-                .rendezVousId(savedConsultation.getRendezVousId().getRendezVousId())
-                .observations(savedConsultation.getDescription())
-                .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
-                        .medicament(prescription.getMedicament())
-                        .duree(prescription.getDuree())
-                        .build()).collect(Collectors.toList()))
+                .consultationId(cn.getConsultationId())
+                .rendezVousId(cn.getRendezVousId().getRendezVousId())
+                .observations(cn.getDescription())
+                .dateConsultation(cn.getDateConsultation())
+//                .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
+//                        .medicament(prescription.getMedicament())
+//                        .duree(prescription.getDuree())
+//                        .build()).collect(Collectors.toList()))
                 .build();
     }
     public void deleteConsultationById(Integer consultationId) {
@@ -126,10 +117,11 @@ public class ConsultationService {
                 .consultationId(savedRdv.getConsultationId())
                 .rendezVousId(savedRdv.getRendezVousId().getRendezVousId())
                 .observations(savedRdv.getDescription())
-                .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
-                        .medicament(prescription.getMedicament())
-                        .duree(prescription.getDuree())
-                        .build()).collect(Collectors.toList()))
+                .dateConsultation(savedRdv.getDateConsultation())
+//                .prescriptions(consultationRequest.getPrescriptions().stream().map(prescription -> PrescriptionResponse.builder()
+//                        .medicament(prescription.getMedicament())
+//                        .duree(prescription.getDuree())
+//                        .build()).collect(Collectors.toList()))
                 .build();
     }
     private static String[] getNullPropertyNames(Object source) {

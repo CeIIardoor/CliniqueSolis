@@ -1,12 +1,11 @@
 package info.cellardoor.CliniqueSolis.Consultation.Models;
 
-import info.cellardoor.CliniqueSolis.Medecin.Models.Medecin;
-import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVous;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,22 +19,15 @@ public class Consultation {
     @Column(name = "consultation_id")
     private Integer consultationId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "medecin_id")
-    private Medecin medecin;
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "rendez_vous_id")
     private RendezVous rendezVousId;
 
     @Column(name = "date_consultation")
-        private Date dateConsultation;
+        private String dateConsultation;
 
     @Column(name = "description")
     private String description;
+    //private List<Prescription> prescriptions;
 
 }
