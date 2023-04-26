@@ -5,42 +5,43 @@ import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse.
 import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse.ListFactureResponse;
 import info.cellardoor.CliniqueSolis.Comptabilite.Models.Facture;
 import info.cellardoor.CliniqueSolis.Comptabilite.Models.repositories.FactureRepository;
+import info.cellardoor.CliniqueSolis.Patient.Models.PatientRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
-@RequiredArgsConstructor
-@Builder
+
 @Service
+@RequiredArgsConstructor
+
 public class FactureService {
-    public FactureRepository factureRepository;
-    @Autowired
-    public FactureService(FactureRepository factureRepository) {
-        this.factureRepository = factureRepository;
-    }
+    public final FactureRepository factureRepository;
+    public final PatientRepository patientRepository;
 
     public FactureResponse getFactureById(Integer id) {
         var facture= factureRepository.findById(id).orElseThrow(() ->new NoSuchElementException("non facture trouve"));
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
-                .nom(facture.getPatient().getUser().getNom())
+                .cin(facture.getPatient().getCin())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
 
     }
     public FactureResponse createFacture(FactureRequest factureRequest ){
-
+        var patient= patientRepository.findByCin(factureRequest.getCin()).orElseThrow(() ->new NoSuchElementException("non patient trouve"));
         var facture = Facture.builder()
                 .montant(factureRequest.getMontant())
+                .patient(patient)
                 .type_service(factureRequest.getType_service()).build();
         factureRepository.save(facture);
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
-                .nom(facture.getPatient().getUser().getNom())
+                .cin(facture.getPatient().getCin())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
@@ -51,7 +52,7 @@ public class FactureService {
         factureRepository.delete(facture);
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
-                .nom(facture.getPatient().getUser().getNom())
+                .cin(facture.getPatient().getCin())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
@@ -64,14 +65,14 @@ public class FactureService {
         factureRepository.save(facture);
         return FactureResponse.builder()
                 .factureId(facture.getFactureId())
-                .nom(facture.getPatient().getUser().getNom())
+                .cin(facture.getPatient().getCin())
                 .montant(facture.getMontant())
                 .type_service(facture.getType_service())
                 .build();
 
     }
 
-    public ListFactureResponse getAllFacture() {
+    public ListFactureResponse getAll() {
         var factures = factureRepository.findAll();
         if (factures.size() == 0)
             return null;
@@ -79,7 +80,7 @@ public class FactureService {
                 .factures(factures.stream().map(facture -> FactureResponse.builder()
                                 .factureId(facture.getFactureId())
                                 .montant(facture.getMontant())
-                                .nom(facture.getPatient().getUser().getNom())
+                                .cin(facture.getPatient().getCin())
                                 .type_service(facture.getType_service())
                                 .build())
                         .toList())

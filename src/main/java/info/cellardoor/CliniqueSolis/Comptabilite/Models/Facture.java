@@ -12,16 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Factures")
+@Table(name = "factures")
 public class Facture {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer factureId;
-    @JoinColumn(name="patientId")
-    private Integer patientId;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="patient_id")
     private Patient patient;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Medecin medecin;
     private Long montant ;
     private String type_service;
 
