@@ -11,9 +11,10 @@ public class Prescription {
     @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer prescriptionId;
-    private String medicament;
-    private Integer duree;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "consultation_id")
     private Consultation consultation;
+    private String medicament;
+    private Integer duree;
+
 }
