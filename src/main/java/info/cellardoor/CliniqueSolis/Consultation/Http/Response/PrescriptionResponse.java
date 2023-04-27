@@ -10,8 +10,11 @@ import lombok.*;
 public class PrescriptionResponse {
     @JsonProperty("prescription_id")
     private Integer prescriptionId;
+    @JsonProperty("consultation_id")
+    private Integer consultationId;
     @JsonProperty("medicament")
     private String medicament;
     @JsonProperty("duree")
     private Integer duree;
+
 }

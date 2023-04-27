@@ -8,6 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 public class PrescriptionRequest {
     private Integer prescriptionId;
+    private Integer consultationId;
     private String medicament;
     private Integer duree;
+
 }
