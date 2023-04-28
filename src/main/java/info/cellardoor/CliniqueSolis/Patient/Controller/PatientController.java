@@ -28,12 +28,12 @@ public class PatientController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ListPatientResponse> getByCinContaining(
+    public ResponseEntity<ListPatientResponse> getByCinStartingWith(
             @RequestParam(value = "cin", required = false) String cin) {
         if (cin == null) {
             return ResponseEntity.ok(patientService.getAll());
         }
-        return ResponseEntity.ok(patientService.getByCinContaining(cin));
+        return ResponseEntity.ok(patientService.findByCinStartingWith(cin));
     }
 
     @PostMapping("/create")

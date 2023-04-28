@@ -16,8 +16,10 @@ public class RendezVous {
     @GeneratedValue
     private Integer rendezVousId;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "patient_id")
     public Patient patient;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "medecin_id")
     public Medecin medecin;
     private String date;
     private String heure;
