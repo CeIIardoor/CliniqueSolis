@@ -13,4 +13,5 @@ import java.util.List;
 @Builder
 public class ListPatientResponse {
     private List<PatientResponse> patients;
+
 }
