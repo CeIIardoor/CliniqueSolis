@@ -43,7 +43,7 @@ public class FactureController {
     }
     @GetMapping("/allfacture")
     public ResponseEntity<ListFactureResponse> getAllFacture() {
-        return ResponseEntity.ok(factureService.getAllFacture());
+        return ResponseEntity.ok(factureService.getAll());
     }
 
 
