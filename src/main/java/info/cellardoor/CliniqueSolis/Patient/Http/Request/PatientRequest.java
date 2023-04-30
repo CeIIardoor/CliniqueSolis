@@ -1,7 +1,4 @@
 package info.cellardoor.CliniqueSolis.Patient.Http.Request;
-
-import info.cellardoor.CliniqueSolis.Auth.Models.User.Roles;
-import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +14,6 @@ public class PatientRequest {
     private String cin;
     private String email;
     private String mdp;
-    private String groupeSanguin;
     private String role;
+    private Integer antecedentId;
 }

@@ -37,12 +37,10 @@ public class PatientServiceTest {
         patientRequest.setNom("El Ouardi");
         patientRequest.setPrenom("Marouan");
         patientRequest.setRole("ROLE_PATIENT");
-        patientRequest.setGroupeSanguin("O+");
 
         Patient patient = new Patient();
         patient.setPatientId(1);
         patient.setCin("GA218629");
-        patient.setGroupeSanguin("O+");
 
         User user = new User();
         user.setEmail("elmarouanelouardi@gmail.com");
@@ -64,18 +62,16 @@ public class PatientServiceTest {
         // assert the result
         System.out.println(patient.getPatientId() + " | " + patientResponse.getPatientId());
         System.out.println(patientRequest.getCin() + " | " + patientResponse.getCin());
-        System.out.println(patientRequest.getGroupeSanguin() + " | " + patientResponse.getGroupeSanguin());
+//        System.out.println(patientRequest.getGroupeSanguin() + " | " + patientResponse.getGroupeSanguin());
         System.out.println(patientRequest.getNom() + " | " + patientResponse.getNom());
         System.out.println(patientRequest.getPrenom() + " | " + patientResponse.getPrenom());
-        System.out.println(patientRequest.getRole() + " | " + patientResponse.getRole());
         System.out.println(patientRequest.getEmail() + " | " + patientResponse.getEmail());
 
         assertEquals(patient.getPatientId(), patientResponse.getPatientId());
         assertEquals(patientRequest.getCin(), patientResponse.getCin());
-        assertEquals(patientRequest.getGroupeSanguin(), patientResponse.getGroupeSanguin());
+//        assertEquals(patientRequest.getGroupeSanguin(), patientResponse.getGroupeSanguin());
         assertEquals(patientRequest.getNom(), patientResponse.getNom());
         assertEquals(patientRequest.getPrenom(), patientResponse.getPrenom());
-        assertEquals(patientRequest.getRole(), patientResponse.getRole());
         assertEquals(patientRequest.getEmail(), patientResponse.getEmail());
     }
 }
