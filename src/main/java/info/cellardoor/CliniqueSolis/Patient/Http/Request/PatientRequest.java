@@ -16,4 +16,7 @@ public class PatientRequest {
     private String mdp;
     private String role;
     private Integer antecedentId;
+    private String telephone;
+    private String sexe;
+    private String Age;
 }
