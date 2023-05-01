@@ -7,24 +7,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 public class FactureResponse {
 
-    @JsonProperty("factureId")
+    @JsonProperty("facture_id")
     private Integer factureId;
-
-    @JsonProperty("nom_patient")
-    private String nom;
-
+    @JsonProperty("cin")
+    private String cin;
     @JsonProperty("montant")
     private Long montant ;
-
     @JsonProperty("type_service")
     private String type_service;
 
