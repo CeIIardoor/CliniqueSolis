@@ -15,16 +15,16 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class PrescriptionService {
     public final PrescriptionRepository prescriptionRepository;
     public final ConsultationRepository consultationRepository;
 
-//    @Autowired
-//    public PrescriptionService(PrescriptionRepository prescriptionRepository, ConsultationRepository consultationRepository) {
-//        this.prescriptionRepository = prescriptionRepository;
-//        this.consultationRepository = consultationRepository;
-//    }
+    @Autowired
+    public PrescriptionService(ConsultationRepository consultationRepository,PrescriptionRepository prescriptionRepository ) {
+        this.prescriptionRepository = prescriptionRepository;
+        this.consultationRepository = consultationRepository;
+    }
     private Consultation getConsultationById(Integer consultationId) {
         Optional<Consultation> consultation = consultationRepository.findById(consultationId);
         if (consultation.isEmpty()) {
@@ -33,7 +33,7 @@ public class PrescriptionService {
         return consultation.get();
     }
     public PrescriptionResponse getPrescriptionById(Integer id) {
-        var prescription = prescriptionRepository.findById(id)
+        var prescription = prescriptionRepository.findByConsultationId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Prescription not found"));
         return PrescriptionResponse.builder()
                 .prescriptionId(prescription.getPrescriptionId())
@@ -46,14 +46,14 @@ public class PrescriptionService {
         Consultation consultation = getConsultationById(prescriptionRequest.getConsultationId());
         var prescription = Prescription.builder()
                 .prescriptionId(prescriptionRequest.getPrescriptionId())
-                .consultation(consultation)
+                .consultationId(consultation)
                 .medicament(prescriptionRequest.getMedicament())
                 .duree(prescriptionRequest.getDuree())
                 .build();
         prescriptionRepository.save(prescription);
         return PrescriptionResponse.builder()
                 .prescriptionId(prescription.getPrescriptionId())
-                .consultationId(prescription.getConsultation().getConsultationId())
+                .consultationId(prescription.getConsultationId().getConsultationId())
                 .medicament(prescription.getMedicament())
                 .duree(prescription.getDuree())
                 .build();
@@ -64,13 +64,13 @@ public class PrescriptionService {
                 .orElseThrow(() -> new IllegalArgumentException("Prescription not found"));
         Consultation consultation = getConsultationById(prescriptionRequest.getConsultationId());
         prescription.setPrescriptionId(prescriptionRequest.getPrescriptionId());
-        prescription.setConsultation(consultation);
+        prescription.setConsultationId(consultation);
         prescription.setMedicament(prescriptionRequest.getMedicament());
         prescription.setDuree(prescriptionRequest.getDuree());
         var savedPrescription= prescriptionRepository.save(prescription);
         return PrescriptionResponse.builder()
                 .prescriptionId(prescription.getPrescriptionId())
-                .consultationId(prescription.getConsultation().getConsultationId())
+                .consultationId(prescription.getConsultationId().getConsultationId())
                 .medicament(prescription.getMedicament())
                 .duree(prescription.getDuree())
                 .build();

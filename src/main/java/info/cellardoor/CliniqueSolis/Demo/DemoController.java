@@ -2,6 +2,7 @@ package info.cellardoor.CliniqueSolis.Demo;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVous;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;

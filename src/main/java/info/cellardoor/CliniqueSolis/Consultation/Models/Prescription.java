@@ -1,5 +1,6 @@
 package info.cellardoor.CliniqueSolis.Consultation.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,13 +8,16 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name = "prescription")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class Prescription {
     @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer prescriptionId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "consultation_id")
-    private Consultation consultation;
+    private Consultation consultationId;
     private String medicament;
     private Integer duree;
 
