@@ -14,15 +14,22 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+
+    @GetMapping("/all")
+    public ResponseEntity<ListUserResponse> getAll() {
+        return ResponseEntity.ok(userService.getAll());
+    }
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(
             @PathVariable("id") Integer id) {
         return ResponseEntity.ok(userService.getById(id));
     }
-
-    @GetMapping("/all")
-    public ResponseEntity<ListUserResponse> getAll() {
-        return ResponseEntity.ok(userService.getAll());
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UserResponse> updateUserById(
+            @PathVariable("id") Integer id,
+            @RequestBody UserRequest userRequest
+    ) {
+        return ResponseEntity.ok(userService.updateById(id, userRequest));
     }
 
     @DeleteMapping("/delete/{id}")
@@ -34,13 +41,6 @@ public class UserController {
         return ResponseEntity.ok("User deleted");
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<UserResponse> updateUserById(
-            @PathVariable("id") Integer id,
-            @RequestBody UserRequest userRequest
-    ) {
-        return ResponseEntity.ok(userService.updateById(id, userRequest));
-    }
 
 
 
