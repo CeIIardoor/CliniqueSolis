@@ -41,7 +41,7 @@ public class User implements UserDetails {
 
     private static User adminInstance = null;
 
-    public static User getAdminInstance(String nom, String prenom, String email, String mdp) {
+    public static synchronized User getAdminInstance(String nom, String prenom, String email, String mdp) {
         if (adminInstance == null) {
             adminInstance = new User(nom, prenom, email, new BCryptPasswordEncoder().encode(mdp));
             adminInstance.setRole(Roles.ROLE_ADMIN);
@@ -49,7 +49,7 @@ public class User implements UserDetails {
         return adminInstance;
     }
 
-    public static User getUserInstance(String nom, String prenom, String email, String mdp) {
+    public static synchronized User getUserInstance(String nom, String prenom, String email, String mdp) {
         return new User(nom, prenom, email, new BCryptPasswordEncoder().encode(mdp));
     }
 
