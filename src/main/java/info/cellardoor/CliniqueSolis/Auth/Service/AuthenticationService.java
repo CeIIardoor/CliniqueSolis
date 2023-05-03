@@ -95,13 +95,15 @@ public class AuthenticationService {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refreshToken;
         final String userEmail;
+        User user = null;
+
         if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
             throw new RuntimeException("Refresh token is missing");
         }
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUserEmail(refreshToken);
         if (userEmail != null) {
-            var user = this.userRepository.findByEmail(userEmail)
+            user = this.userRepository.findByEmail(userEmail)
                     .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable"));
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
@@ -109,9 +111,11 @@ public class AuthenticationService {
                 saveUserToken(user, accessToken);
             }
         }
+        assert user != null;
         return AuthenticationResponse.builder()
                 .accessToken(refreshToken)
                 .refreshToken(refreshToken)
+                .role(user.getRole().name())
                 .build();
     }
 }
