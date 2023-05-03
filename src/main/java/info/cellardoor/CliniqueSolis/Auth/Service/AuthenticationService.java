@@ -1,8 +1,8 @@
 package info.cellardoor.CliniqueSolis.Auth.Service;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import info.cellardoor.CliniqueSolis.Auth.Http.Request.AuthenticationRequest;
+import info.cellardoor.CliniqueSolis.Auth.Http.Response.LoginResponse;
 import info.cellardoor.CliniqueSolis.Patient.Http.Request.RegisterRequest;
 import info.cellardoor.CliniqueSolis.Auth.Http.Response.AuthenticationResponse;
 import info.cellardoor.CliniqueSolis.Auth.Models.Token.Token;
@@ -12,15 +12,13 @@ import info.cellardoor.CliniqueSolis.Auth.Models.User.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -46,10 +44,11 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
+                .role(user.getRole().name())
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public LoginResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -59,12 +58,11 @@ public class AuthenticationService {
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-        revokeAllUserTokens(user);
+//        var refreshToken = jwtService.generateRefreshToken(user);
+//        revokeAllUserTokens(user); If we want to limit the number of active sessions
         saveUserToken(user, jwtToken);
-        return AuthenticationResponse.builder()
+        return LoginResponse.builder()
                 .accessToken(jwtToken)
-                .refreshToken(refreshToken)
                 .role(user.getRole().name())
                 .build();
     }
@@ -91,31 +89,33 @@ public class AuthenticationService {
         tokenRepository.saveAll(validUserTokens);
     }
 
-    public void refreshToken(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) throws IOException {
+    public AuthenticationResponse refreshToken(
+            HttpServletRequest request
+    ) {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refreshToken;
         final String userEmail;
+        User user = null;
+
         if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-            return;
+            throw new RuntimeException("Refresh token is missing");
         }
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUserEmail(refreshToken);
         if (userEmail != null) {
-            var user = this.userRepository.findByEmail(userEmail)
-                    .orElseThrow();
+            user = this.userRepository.findByEmail(userEmail)
+                    .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable"));
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
                 saveUserToken(user, accessToken);
-                var authResponse = AuthenticationResponse.builder()
-                        .accessToken(accessToken)
-                        .refreshToken(refreshToken)
-                        .build();
-                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
         }
+        assert user != null;
+        return AuthenticationResponse.builder()
+                .accessToken(refreshToken)
+                .refreshToken(refreshToken)
+                .role(user.getRole().name())
+                .build();
     }
 }

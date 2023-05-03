@@ -1,4 +1,4 @@
-package info.cellardoor.CliniqueSolis.Patient.Http.Response;
+package info.cellardoor.CliniqueSolis.Auth.Http.Response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ListPatientResponse {
-    private List<PatientResponse> patients;
+public class ListUserResponse {
+    private List<UserResponse> users;
 
 }
