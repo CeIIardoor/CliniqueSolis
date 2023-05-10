@@ -58,11 +58,12 @@ public class AuthenticationService {
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-//        var refreshToken = jwtService.generateRefreshToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
 //        revokeAllUserTokens(user); If we want to limit the number of active sessions
         saveUserToken(user, jwtToken);
         return LoginResponse.builder()
                 .accessToken(jwtToken)
+                .refreshToken(refreshToken)
                 .role(user.getRole().name())
                 .build();
     }
