@@ -1,5 +1,6 @@
 package info.cellardoor.CliniqueSolis.RendezVous.Models;
 
+import info.cellardoor.CliniqueSolis.Consultation.Models.Consultation;
 import info.cellardoor.CliniqueSolis.Medecin.Models.Medecin;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import jakarta.persistence.*;
@@ -21,6 +22,9 @@ public class RendezVous {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "medecin_id")
     public Medecin medecin;
+//    @OneToOne(mappedBy = "rendezVous")
+//    private Consultation consultation;
+
     private String date;
     private String heure;
     @Column
