@@ -25,7 +25,6 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
     public PatientResponse getPatientById(Integer id) {
         var patient = patientRepository.findByPatientId(id).orElseThrow(() -> new NoSuchElementException("Patient not found"));
         return PatientDTO.build(patient);

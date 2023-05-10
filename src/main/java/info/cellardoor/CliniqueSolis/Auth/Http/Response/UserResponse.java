@@ -21,4 +21,6 @@ public class UserResponse {
     private String email;
     @JsonProperty("role")
     private String role;
+    @JsonProperty("isActive")
+    private Boolean isActive;
 }

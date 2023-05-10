@@ -54,7 +54,7 @@ public class PatientController {
     public ResponseEntity<PatientResponse> updatePatientById(
             @PathVariable("id") Integer id,
             @RequestBody PatientRequest patientRequest
-    ) throws Exception {
+    ) {
         return ResponseEntity.ok(patientService.updatePatientById(id, patientRequest));
     }
 
