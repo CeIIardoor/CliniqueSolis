@@ -3,7 +3,6 @@ package info.cellardoor.CliniqueSolis.RendezVous.Models;
 import info.cellardoor.CliniqueSolis.Medecin.Models.Medecin;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import lombok.*;
 
 
