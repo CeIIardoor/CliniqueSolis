@@ -11,6 +11,7 @@ public class UserDTO {
                 .prenom(user.getPrenom())
                 .email(user.getEmail())
                 .role(user.getRole().name())
+                .isActive(user.getStatus())
                 .build();
     }
 }

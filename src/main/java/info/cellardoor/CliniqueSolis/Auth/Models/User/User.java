@@ -40,6 +40,12 @@ public class User implements UserDetails {
     }
 
     private static User adminInstance = null;
+    
+    public Boolean getStatus() {
+        return tokens.stream().anyMatch(
+                token -> (!token.expired && !token.revoked)
+        );
+    }
 
     public static synchronized User getAdminInstance(String nom, String prenom, String email, String mdp) {
         if (adminInstance == null) {
