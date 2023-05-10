@@ -106,7 +106,7 @@ public class ConsultationService {
                 .build();
     }
     public void deleteConsultationById(Integer consultationId) {
-        var consultation = consultationRepository.findByConsultationId(consultationId)
+        var consultation = consultationRepository.findById(consultationId)
                 .orElseThrow(() -> new NoSuchElementException("Consultation non trouvé"));
         consultationRepository.delete(consultation);
     }
