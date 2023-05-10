@@ -4,6 +4,7 @@ import info.cellardoor.CliniqueSolis.App.Helpers;
 import info.cellardoor.CliniqueSolis.Auth.Http.Request.UserRequest;
 import info.cellardoor.CliniqueSolis.Auth.Http.Response.ListUserResponse;
 import info.cellardoor.CliniqueSolis.Auth.Http.Response.UserResponse;
+import info.cellardoor.CliniqueSolis.Auth.Models.User.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserDTO;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
@@ -21,6 +22,9 @@ public class UserService {
     private final UserRepository userRepository;
     public ListUserResponse getAll() {
         List<User> users = userRepository.findAll();
+        users.removeIf(user -> !(user.getRole().name().equals(Roles.ROLE_ADMIN.name())
+                || user.getRole().name().equals(Roles.ROLE_UTILISATEUR.name()))
+        );
         return ListUserResponse.builder()
                 .users(users.stream().map(UserDTO::build).toList()).build();
 
