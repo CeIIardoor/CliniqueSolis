@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 public class UserService {
 
     private final UserRepository userRepository;
+
     public ListUserResponse getAll() {
         List<User> users = userRepository.findAll();
         users.removeIf(user -> !(user.getRole().name().equals(Roles.ROLE_ADMIN.name())
