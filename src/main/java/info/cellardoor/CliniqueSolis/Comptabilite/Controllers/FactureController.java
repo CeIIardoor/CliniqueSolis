@@ -2,7 +2,6 @@ package info.cellardoor.CliniqueSolis.Comptabilite.Controllers;
 
 import info.cellardoor.CliniqueSolis.Comptabilite.Http.Request.FactureRequest.FactureRequest;
 import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse.FactureResponse;
-import info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse.ListFactureResponse;
 import info.cellardoor.CliniqueSolis.Comptabilite.Services.FactureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -41,10 +40,7 @@ public class FactureController {
     ) {
         return ResponseEntity.ok(factureService.updateFactureById(id, factureRequest));
     }
-    @GetMapping("/allfacture")
-    public ResponseEntity<ListFactureResponse> getAllFacture() {
-        return ResponseEntity.ok(factureService.getAll());
-    }
+
 
 
 }
