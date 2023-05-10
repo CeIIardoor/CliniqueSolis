@@ -44,4 +44,5 @@ public class ConsultationController {
         consultationService.deleteConsultationById(id);
         return ResponseEntity.ok("Consultation id:" + id + " supprimé");
     }
+
 }

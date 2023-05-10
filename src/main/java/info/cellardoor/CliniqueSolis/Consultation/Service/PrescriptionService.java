@@ -33,7 +33,7 @@ public class PrescriptionService {
         return consultation.get();
     }
     public PrescriptionResponse getPrescriptionById(Integer id) {
-        var prescription = prescriptionRepository.findByConsultationId(id)
+        var prescription = prescriptionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Prescription not found"));
         return PrescriptionResponse.builder()
                 .prescriptionId(prescription.getPrescriptionId())
@@ -77,7 +77,7 @@ public class PrescriptionService {
     }
 
     public void deletePrescriptionById(Integer prescriptionId) {
-        var prescription = prescriptionRepository.findByConsultationId(prescriptionId)
+        var prescription = prescriptionRepository.findByPrescriptionId(prescriptionId)
                 .orElseThrow(() -> new NoSuchElementException("Prescription non trouvé"));
         prescriptionRepository.delete(prescription);
     }

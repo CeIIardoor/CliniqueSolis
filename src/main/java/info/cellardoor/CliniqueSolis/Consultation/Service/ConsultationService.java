@@ -87,7 +87,7 @@ public class ConsultationService {
                 .build();
     }
     public ConsultationResponse  updateConsultationById(Integer id, ConsultationRequest consultationRequest) {
-        var cn = consultationRepository.findByRendezVousId(id)
+        var cn = consultationRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Consultation   non trouvé"));
         cn.setConsultationId(consultationRequest.getConsultationId());
         cn.setDateConsultation(consultationRequest.getDateConsultation());
