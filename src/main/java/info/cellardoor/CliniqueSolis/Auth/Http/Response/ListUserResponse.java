@@ -1,5 +1,4 @@
-package info.cellardoor.CliniqueSolis.Comptabilite.Http.Response.FactureResponse;
-
+package info.cellardoor.CliniqueSolis.Auth.Http.Response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,10 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class ListFactureResponse {
-    private List<FactureResponse> factures;
+public class ListUserResponse {
+    private List<UserResponse> users;
+
 }

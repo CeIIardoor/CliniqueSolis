@@ -1,7 +1,6 @@
 package info.cellardoor.CliniqueSolis.RendezVous.Service;
 
-import info.cellardoor.CliniqueSolis.Medecin.Http.Request.MedecinRequest;
-import info.cellardoor.CliniqueSolis.Medecin.Http.Response.MedecinResponse;
+import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import info.cellardoor.CliniqueSolis.Medecin.Models.Medecin;
 import info.cellardoor.CliniqueSolis.Medecin.Models.MedecinRepository;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
@@ -13,21 +12,20 @@ import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVous;
 import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVousRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RendezVousService {
 
     public final RendezVousRepository rendezVousRepository;
-    public final PatientRepository PatientRepository;
-    public final MedecinRepository MedecinRepository;
+    public final PatientRepository patientRepository;
+    public final MedecinRepository medecinRepository;
+    public final UserRepository userRepository;
 
     public ListRendezVousResponse getAll() {
         List<RendezVous> listeRendezVous = rendezVousRepository.findAll();
@@ -70,7 +68,7 @@ public class RendezVousService {
                 .build();
     }
     private Patient getPatientById(Integer patientId) {
-        Optional<Patient> patient = PatientRepository.findById(patientId);
+        Optional<Patient> patient = patientRepository.findById(patientId);
         if (patient.isEmpty()) {
             throw new IllegalArgumentException("Patient not found");
         }
@@ -78,7 +76,7 @@ public class RendezVousService {
     }
 
     private Medecin getMedecinById(Integer medecinId) {
-        Optional<Medecin> medecin = MedecinRepository.findById(medecinId);
+        Optional<Medecin> medecin = medecinRepository.findById(medecinId);
         if (medecin.isEmpty()) {
             throw new IllegalArgumentException("Medecin not found");
         }
@@ -105,19 +103,6 @@ public class RendezVousService {
                 .duree(rdv.getDuree())
                 .build();
     }
-//    public RendezVous createRendezVous(RendezVousRequest rendezVousRequest) {
-//        Patient patient = getPatientById(rendezVousRequest.getPatientId());
-//        Medecin medecin = getMedecinById(rendezVousRequest.getMedecinId());
-//
-//        RendezVous rendezVous = RendezVous.builder()
-//                .patient(patient)
-//                .medecin(medecin)
-//                .date(rendezVousRequest.getDate())
-//                .heure(rendezVousRequest.getHeure())
-//                .duree(rendezVousRequest.getDuree())
-//                .build();
-//        return rendezVousRepository.save(rendezVous);
-//    }
 
     public RendezVousResponse updateRendezVousById(Integer id, RendezVousRequest rdvRequest) {
         var rdv = rendezVousRepository.findByRendezVousId(id)
@@ -127,7 +112,7 @@ public class RendezVousService {
         rdv.setDate(rdvRequest.getDate());
         rdv.setHeure(rdvRequest.getHeure());
         rdv.setDuree(rdvRequest.getDuree());
-        var savedRdv= rendezVousRepository.save(rdv);
+        rendezVousRepository.save(rdv);
         return RendezVousResponse.builder()
                 .rendezVousId(rdv.getRendezVousId())
                 .patientId(rdv.getPatient().getPatientId())
@@ -141,11 +126,11 @@ public class RendezVousService {
         if (optionalRendezVous.isEmpty()) {
             return null;
         }
-        Optional<Patient> patient = PatientRepository.findById(rendezVousRequest.getPatientId());
+        Optional<Patient> patient = patientRepository.findById(rendezVousRequest.getPatientId());
         if (patient.isEmpty()) {
             return null;
         }
-        Optional<Medecin> medecin = MedecinRepository.findById(rendezVousRequest.getMedecinId());
+        Optional<Medecin> medecin = medecinRepository.findById(rendezVousRequest.getMedecinId());
         if (medecin.isEmpty()) {
             return null;
         }
@@ -184,28 +169,5 @@ public class RendezVousService {
                                 .build())
                         .toList())
                 .build();
-    }
-    public RendezVousResponse getRendezVousResponse(RendezVousRequest rendezVousRequest, RendezVous rendezVous) {
-        BeanUtils.copyProperties(rendezVousRequest, rendezVous, getNullPropertyNames(rendezVousRequest));
-        var savedRdv = rendezVousRepository.save(rendezVous);
-        return RendezVousResponse.builder()
-                .rendezVousId(savedRdv.getRendezVousId())
-                .patientId(savedRdv.getPatient().getPatientId())
-                .medecinId(savedRdv.getMedecin().getMedecinId())
-                .date(savedRdv.getDate())
-                .heure(savedRdv.getHeure())
-                .build();
-    }
-    private static String[] getNullPropertyNames(Object source) {
-        final BeanWrapper src = new BeanWrapperImpl(source);
-        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
-
-        Set<String> emptyNames = new HashSet<>();
-        for(java.beans.PropertyDescriptor pd : pds) {
-            Object srcValue = src.getPropertyValue(pd.getName());
-            if (srcValue == null) emptyNames.add(pd.getName());
-        }
-        String[] result = new String[emptyNames.size()];
-        return emptyNames.toArray(result);
     }
 }
