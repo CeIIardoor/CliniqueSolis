@@ -10,6 +10,7 @@ import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVous;
 import info.cellardoor.CliniqueSolis.RendezVous.Service.RendezVousService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,7 +23,8 @@ public class RendezVousController {
     private final RendezVousService rendezVousService;
 
     @GetMapping("/")
-    public ResponseEntity<ListRendezVousResponse> getAll() {
+    @PreAuthorize("hasAnyRole({'ROLE_UTILISATEUR', 'ROLE_ADMIN'})")
+    public ResponseEntity<ListRendezVousResponse> getAllRendezVous() {
         return ResponseEntity.ok(rendezVousService.getAll());
     }
 
