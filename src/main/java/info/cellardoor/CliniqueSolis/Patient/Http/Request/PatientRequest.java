@@ -14,6 +14,4 @@ public class PatientRequest {
     private String cin;
     private String email;
     private String mdp;
-    private String role;
-    private Integer antecedentId;
 }
