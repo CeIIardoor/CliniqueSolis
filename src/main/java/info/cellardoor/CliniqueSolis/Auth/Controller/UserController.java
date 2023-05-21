@@ -33,6 +33,13 @@ public class UserController {
         return ResponseEntity.ok(userService.search(query));
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<UserResponse> createUser(
+            @RequestBody UserRequest userRequest
+    ) {
+        return ResponseEntity.ok(userService.create(userRequest));
+    }
+
 
 
     @PutMapping("/update/{id}")

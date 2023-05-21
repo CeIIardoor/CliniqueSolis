@@ -31,9 +31,7 @@ public class LogoutService implements LogoutHandler {
         var storedToken = tokenRepository.findByToken(jwt)
                 .orElse(null);
         if (storedToken != null) {
-            storedToken.setExpired(true);
-            storedToken.setRevoked(true);
-            tokenRepository.save(storedToken);
+            tokenRepository.delete(storedToken);
             SecurityContextHolder.clearContext();
         } else {
             throw new UsernameNotFoundException("Cannot find a User with this token");
