@@ -56,4 +56,17 @@ public class UserService {
         var savedUser = userRepository.save(user);
         return UserDTO.build(savedUser);
     }
+
+    public ListUserResponse search(String query) {
+        List<User> users = userRepository.findAll();
+        users.removeIf(user -> !(user.getRole().name().equals(Roles.ROLE_ADMIN.name())
+                || user.getRole().name().equals(Roles.ROLE_UTILISATEUR.name()))
+        );
+        users.removeIf(user -> !user.getNom().toLowerCase().contains(query.toLowerCase())
+                && !user.getPrenom().toLowerCase().contains(query.toLowerCase())
+                && !user.getEmail().toLowerCase().contains(query.toLowerCase())
+        );
+        return ListUserResponse.builder()
+                .users(users.stream().map(UserDTO::build).toList()).build();
+    }
 }

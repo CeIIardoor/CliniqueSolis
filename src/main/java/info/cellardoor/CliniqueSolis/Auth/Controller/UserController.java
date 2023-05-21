@@ -5,6 +5,7 @@ import info.cellardoor.CliniqueSolis.Auth.Http.Response.ListUserResponse;
 import info.cellardoor.CliniqueSolis.Auth.Http.Response.UserResponse;
 import info.cellardoor.CliniqueSolis.Auth.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import net.minidev.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-
 
     @GetMapping("/all")
     public ResponseEntity<ListUserResponse> getAll() {
@@ -24,6 +24,17 @@ public class UserController {
             @PathVariable("id") Integer id) {
         return ResponseEntity.ok(userService.getById(id));
     }
+
+    ///api/user/search?query=${query}
+    @GetMapping("search")
+    public ResponseEntity<ListUserResponse> searchUser(
+            @RequestParam("query") String query
+    ) {
+        return ResponseEntity.ok(userService.search(query));
+    }
+
+
+
     @PutMapping("/update/{id}")
     public ResponseEntity<UserResponse> updateUserById(
             @PathVariable("id") Integer id,
@@ -34,10 +45,15 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUserById(
-
             @PathVariable("id") Integer id
     ) {
         userService.deleteById(id);
-        return ResponseEntity.ok("User deleted");
+        return ResponseEntity.ok(
+                JSONObject.toJSONString(
+                        new JSONObject() {{
+                            put("message", "User " + id + " deleted successfully");
+                        }}
+                )
+        );
     }
 }
