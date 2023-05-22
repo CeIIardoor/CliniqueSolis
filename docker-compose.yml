@@ -1,0 +1,29 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgrespw
+      POSTGRES_USER: postgres
+      POSTGRES_DB: cliniquesolis
+
+  backend:
+    build:
+      context: ./CliniqueSolis
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./CliniqueSolisWeb
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - backend
