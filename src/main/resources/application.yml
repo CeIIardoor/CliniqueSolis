@@ -8,9 +8,9 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/cliniquesolis
-    username: postgres
-    password: postgrespw
+    url: jdbc:postgresql://horton.db.elephantsql.com/qwbsogxc
+    username: qwbsogxc
+    password: 5qlmwDfExUpnRkkSOdfMP0_wX0o6g88g
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
