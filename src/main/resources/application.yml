@@ -8,9 +8,9 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:postgresql://ep-rapid-darkness-227486.eu-central-1.aws.neon.tech:5432/neondb
-    username: yassine.laouina97
-    password: UkLwq3gx2iSo
+    url: jdbc:postgresql://localhost:5432/cliniquesolis
+    username: postgres
+    password: postgrespw
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
