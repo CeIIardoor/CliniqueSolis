@@ -8,7 +8,7 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:postgresql://dumbo.db.elephantsql.com/hnsnvusu
+    url: jdbc:postgresql://dumbo.db.elephantsql.com:5432/hnsnvusu
     username: hnsnvusu
     password: gOZFxpo3WG-7RHnJEmjkCaWfkxr77StO
     driver-class-name: org.postgresql.Driver
