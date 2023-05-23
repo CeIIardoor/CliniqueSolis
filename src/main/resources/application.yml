@@ -5,22 +5,12 @@
   # docker run -p 5050:80 --restart unless-stopped -e -d --name pgadmin4 dpage/pgadmin4 'PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org' -e 'PGADMIN_DEFAULT_PASSWORD=admin'
     # when image is installed : docker start pgadmin4
 spring:
-  web:
-    cors:
-      allowed-origins:
-        - https://cliniquesolis.cellardoor.info
-      allowed-methods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-      allowed-headers: Content-Type
   profiles:
     active: dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/cliniquesolis
-    username: postgres
-    password: postgrespw
+    url: jdbc:postgresql://dumbo.db.elephantsql.com/hnsnvusu
+    username: hnsnvusu
+    password: gOZFxpo3WG-7RHnJEmjkCaWfkxr77StO
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
