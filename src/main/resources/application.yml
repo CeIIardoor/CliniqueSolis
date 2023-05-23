@@ -2,7 +2,7 @@
   # docker run -p 5432:5432 --restart unless-stopped -d --name postgres -e POSTGRES_PASSWORD=postgrespw -e POSTGRES_USER=postgres -e POSTGRES_DB=cliniquesolis postgres
     # when image is installed : docker start postgres
 #  PgAdmin4 :
-  # docker run -p 5050:80 --restart unless-stopped -e -d --name pgadmin4 dpage/pgadmin4 'PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org' -e 'PGADMIN_DEFAULT_PASSWORD=admin'
+  # docker run -p 5050:80 --restart unless-stopped --name pgadmin4 -e 'PGADMIN_DEFAULT_EMAIL=yassine@cellardoor.info' -e 'PGADMIN_DEFAULT_PASSWORD=postgrespw' -d dpage/pgadmin4
     # when image is installed : docker start pgadmin4
 spring:
   profiles:
