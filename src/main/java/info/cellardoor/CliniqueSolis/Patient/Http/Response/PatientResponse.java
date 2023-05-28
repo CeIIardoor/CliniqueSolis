@@ -23,5 +23,5 @@ public class PatientResponse {
     private String email;
     @JsonProperty("cin")
     private String cin;
-    private Antecedent antecedents;
+//    private Antecedent antecedents;
 }

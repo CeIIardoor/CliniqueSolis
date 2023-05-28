@@ -11,7 +11,7 @@ public class PatientDTO {
                 .prenom(patient.getUser().getPrenom())
                 .cin(patient.getCin())
                 .email(patient.getUser().getEmail())
-                .antecedents(patient.getAntecedents())
+//                .antecedents(patient.getAntecedents())
                 .build();
     }
 }
