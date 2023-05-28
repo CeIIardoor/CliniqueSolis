@@ -3,7 +3,6 @@ package info.cellardoor.CliniqueSolis.Auth.Service;
 
 import info.cellardoor.CliniqueSolis.Auth.Http.Request.AuthenticationRequest;
 import info.cellardoor.CliniqueSolis.Auth.Http.Response.LoginResponse;
-import info.cellardoor.CliniqueSolis.Patient.Http.Request.RegisterRequest;
 import info.cellardoor.CliniqueSolis.Auth.Http.Response.AuthenticationResponse;
 import info.cellardoor.CliniqueSolis.Auth.Models.Token.Token;
 import info.cellardoor.CliniqueSolis.Auth.Models.Token.TokenRepository;
@@ -11,6 +10,7 @@ import info.cellardoor.CliniqueSolis.Auth.Models.Token.TokenType;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
+import info.cellardoor.CliniqueSolis.Medecin.Http.Request.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
