@@ -26,6 +26,8 @@ public class SecurityConfig {
     private final LogoutHandler logoutHandler;
 
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -34,10 +36,12 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-//                .requestMatchers("/api/demo-controller/hello")
-//                .authenticated()
-                .anyRequest()
+                .requestMatchers("/api/auth/**")
                 .permitAll()
+                .requestMatchers("/api/patient/create")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Disable session creation on Spring Security

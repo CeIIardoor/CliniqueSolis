@@ -14,7 +14,7 @@ public class PatientDTO {
                 .sexe(patient.getSexe())
                 .telephone(patient.getTelephone())
                 .email(patient.getUser().getEmail())
-                .antecedents(patient.getAntecedents())
+//                .antecedents(patient.getAntecedents())
                 .build();
     }
 }
