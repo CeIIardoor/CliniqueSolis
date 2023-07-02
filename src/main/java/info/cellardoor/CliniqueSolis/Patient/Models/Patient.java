@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,5 +25,13 @@ public class Patient{
     @JoinColumn(name = "antecedent_id")
     public Antecedent antecedents;
     private String cin;
+    private String telephone;
+    private Sexe sexe;
+    private Date dateNaissance;
+    public int getAge() {
+        Date date = new Date();
+        int age = date.getYear() - dateNaissance.getYear();
+        return age;
+    }
 
 }

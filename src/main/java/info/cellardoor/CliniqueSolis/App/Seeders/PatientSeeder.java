@@ -4,15 +4,15 @@ import com.github.javafaker.Faker;
 import info.cellardoor.CliniqueSolis.App.Config.LocalizedFakerFrench;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.Roles;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
-import info.cellardoor.CliniqueSolis.Patient.Models.*;
+import info.cellardoor.CliniqueSolis.Patient.Models.Antecedent;
+import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
+import info.cellardoor.CliniqueSolis.Patient.Models.PatientRepository;
+import info.cellardoor.CliniqueSolis.Patient.Models.Sexe;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
-import java.util.Collections;
+import java.util.Date;
 
 @Component
 @Order(2)
@@ -42,8 +42,6 @@ public class PatientSeeder implements CommandLineRunner {
 
     static Patient getSeed(Faker faker, User user) {
 
-        LocalDate dateNaissance = faker.date().birthday(10, 70).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
         String groupeSanguin = faker.options().option("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-");
         String allergies = Math.random() > 0.5 ? faker.food().ingredient() : "non allergique";
         String maladiesChroniques = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas de maladies chroniques";
@@ -51,35 +49,24 @@ public class PatientSeeder implements CommandLineRunner {
         String antecedentsFamiliaux = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas d'informations";
         String cin = faker.regexify("[A-Z]{2}[0-9]{5}");
         String telephone = faker.regexify("0[0-9]{9}");
-        String sexe = faker.options().option("Homme", "Femme");
-        String medicaments = Math.random() > 0.5 ? faker.medical().medicineName() : "pas de medicaments";
-        String description = faker.medical().symptoms();
+        Date dateNaissance = faker.date().birthday(18, 60);
+        Sexe sexe = Math.random() > 0.5 ? Sexe.Homme : Sexe.Femme;
 
-        Ordonnance ordonnance = Ordonnance.builder()
-                .medicaments(medicaments)
-                .description(description)
-                .build();
         Antecedent antecedent = Antecedent.builder()
                 .groupeSanguin(groupeSanguin)
                 .allergies(allergies)
                 .maladiesChroniques(maladiesChroniques)
                 .chirurgies(chirurgies)
                 .antecedentsFamiliaux(antecedentsFamiliaux)
-                .ordonnances(Collections.singletonList(ordonnance))
                 .build();
 
-        Patient patient = Patient.builder()
+        return Patient.builder()
                 .user(user)
                 .cin(cin)
                 .dateNaissance(dateNaissance)
-                .sexe(Sexe.valueOf(sexe))
+                .sexe(sexe)
                 .telephone(telephone)
+                .antecedents(antecedent)
                 .build();
-
-        patient.setAntecedents(antecedent);
-        antecedent.setOrdonnances(Collections.singletonList(ordonnance));
-
-        return patient;
     }
-
 }
