@@ -31,7 +31,7 @@ public class PatientService {
     }
 
     public ListPatientResponse findByCinStartingWith(String cin) {
-        List<Patient> patients = patientRepository.findByCinStartingWith(cin);
+        List<Patient> patients = patientRepository.findByCinStartingWith(cin.toUpperCase());
         if (patients.size() == 0)
             return null;
         return ListPatientResponse.builder()
