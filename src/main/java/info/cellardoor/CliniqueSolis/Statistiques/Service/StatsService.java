@@ -55,6 +55,23 @@ public  List<Stats> getStats() {
 
         return nombrePatientsParAge;
     }
+    public Map<Integer, Double> calculerPourcentagePatientsParAge() {
+        Map<Integer, Long> nombrePatientsParAge = calculerNombrePatientsParAge();
+        Map<Integer, Double> pourcentagePatientsParAge = new HashMap<>();
+        long totalPatients = 0;
+        for (long count : nombrePatientsParAge.values()) {
+            totalPatients += count;
+        }
+        for (Map.Entry<Integer, Long> entry : nombrePatientsParAge.entrySet()) {
+            int age = entry.getKey();
+            long count = entry.getValue();
+
+            double pourcentage = (count / (double) totalPatients) * 100;
+            pourcentagePatientsParAge.put(age, pourcentage);
+        }
+
+        return pourcentagePatientsParAge;
+    }
     public Map<String, Long> calculerNombreRendezVousParDate() {
         List<RendezVous> rendezVousList = rendezVousRepository.findAll();
         Map<String, Long> nombreRendezVousParDate = new HashMap<>();
