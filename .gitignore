@@ -35,3 +35,6 @@ build/
 
 ### Node ###
 node_modules/
+
+### Custom ###
+.application.yml

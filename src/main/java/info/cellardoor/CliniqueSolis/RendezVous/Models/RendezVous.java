@@ -24,7 +24,6 @@ public class RendezVous {
     public Medecin medecin;
 //    @OneToOne(mappedBy = "rendezVous")
 //    private Consultation consultation;
-
     private String date;
     private String heure;
     @Column
