@@ -77,6 +77,23 @@ public  List<Stats> getStats() {
 
         return nombreMedecinsParSpecialite;
     }
+    public Map<String, Double> calculerPourcentageMedecinsParSpecialite() {
+        Map<String, Long> nombreMedecinsParSpecialite = calculerNombreMedecinsParSpecialite();
+        Map<String, Double> pourcentageMedecinsParSpecialite = new HashMap<>();
+        long totalMedecins = 0;
+        for (long count : nombreMedecinsParSpecialite.values()) {
+            totalMedecins += count;
+        }
+        for (Map.Entry<String, Long> entry : nombreMedecinsParSpecialite.entrySet()) {
+            String specialite = entry.getKey();
+            long count = entry.getValue();
+
+            double pourcentage = (count / (double) totalMedecins) * 100;
+            pourcentageMedecinsParSpecialite.put(specialite, pourcentage);
+        }
+
+        return pourcentageMedecinsParSpecialite;
+    }
     public Map<String, Long> calculerNombreConsultationsParDate() {
         List<Consultation> consultations = consultationRepository.findAll();
         Map<String, Long> nombreConsultationsParDate = new HashMap<>();

@@ -59,6 +59,11 @@ public class StatsController {
         Map<String, Long> nombreMedecinsParSpecialite = statsService.calculerNombreMedecinsParSpecialite();
         return ResponseEntity.ok(nombreMedecinsParSpecialite);
     }
+    @GetMapping("/pourcentage-medecins-par-specialite")
+    public ResponseEntity<Map<String, Double>> calculerPourcentageMedecinsParSpecialite() {
+        Map<String, Double> pourcentageMedecinsParSpecialite = statsService.calculerPourcentageMedecinsParSpecialite();
+        return ResponseEntity.ok(pourcentageMedecinsParSpecialite);
+    }
 //    @GetMapping("/consultations-par-date")
 //    public Map<String, Long> getNombreConsultationsParDate() {
 //        return statsService.calculerNombreConsultationsParDate();
