@@ -1,22 +1,10 @@
-#  postgres :
-  # docker run -p 5432:5432 --restart unless-stopped -d --name postgres -e POSTGRES_PASSWORD=postgrespw -e POSTGRES_USER=postgres -e POSTGRES_DB=cliniquesolis postgres
-    # when image is installed : docker start postgres
-#  PgAdmin4 :
-  # docker run -p 5050:80 --restart unless-stopped --name pgadmin4 -e 'PGADMIN_DEFAULT_EMAIL=yassine@cellardoor.info' -e 'PGADMIN_DEFAULT_PASSWORD=postgrespw' -d dpage/pgadmin4
-    # when image is installed : docker start pgadmin4
 spring:
   profiles:
     active: dev
-  datasource:
-    url: jdbc:postgresql://ep-rapid-darkness-227486.eu-central-1.aws.neon.tech:5432/neondb
-    username: yassine.laouina97
-    password: UkLwq3gx2iSo
-    # url: jdbc:postgresql://localhost:5432/cliniquesolis
-    # username: postgres
-    # password: postgrespw
-#    url: jdbc:postgresql://dumbo.db.elephantsql.com/hnsnvusu
-#    username: hnsnvusu
-#    password: gOZFxpo3WG-7RHnJEmjkCaWfkxr77StO
+  datasource:   
+    url: jdbc:postgresql://localhost:5432/cliniquesolis
+    username: postgres
+    password: postgrespw
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -35,3 +23,19 @@ application:
       expiration: 86400000 # a day # 3600000 # 1 hour
       refresh-token:
         expiration: 604800000 # 7 days
+
+
+        #  postgres :
+  # docker run -p 5432:5432 --restart unless-stopped -d --name postgres -e POSTGRES_PASSWORD=postgrespw -e POSTGRES_USER=postgres -e POSTGRES_DB=cliniquesolis postgres
+    # when image is installed : docker start postgres
+#  PgAdmin4 :
+  # docker run -p 5050:80 --restart unless-stopped --name pgadmin4 -e 'PGADMIN_DEFAULT_EMAIL=yassine@cellardoor.info' -e 'PGADMIN_DEFAULT_PASSWORD=postgrespw' -d dpage/pgadmin4
+    # when image is installed : docker start pgadmin4
+# prod db
+    # url: jdbc:postgresql://ep-rapid-darkness-227486.eu-central-1.aws.neon.tech:5432/neondb
+    # username: yassine.laouina97
+    # password: UkLwq3gx2iSo
+# prod db bckp
+    #    url: jdbc:postgresql://dumbo.db.elephantsql.com/hnsnvusu
+    #    username: hnsnvusu
+    #    password: gOZFxpo3WG-7RHnJEmjkCaWfkxr77StO
