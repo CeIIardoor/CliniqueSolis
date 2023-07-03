@@ -1,11 +1,11 @@
 package info.cellardoor.CliniqueSolis.Auth.Controller;
 
 
+import info.cellardoor.CliniqueSolis.Auth.Http.Request.AuthenticationRequest;
+import info.cellardoor.CliniqueSolis.Auth.Http.Response.AuthenticationResponse;
 import info.cellardoor.CliniqueSolis.Auth.Http.Response.LoginResponse;
 import info.cellardoor.CliniqueSolis.Auth.Service.AuthenticationService;
-import info.cellardoor.CliniqueSolis.Auth.Http.Request.AuthenticationRequest;
-import info.cellardoor.CliniqueSolis.Patient.Http.Request.RegisterRequest;
-import info.cellardoor.CliniqueSolis.Auth.Http.Response.AuthenticationResponse;
+import info.cellardoor.CliniqueSolis.Medecin.Http.Request.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/api/auth")

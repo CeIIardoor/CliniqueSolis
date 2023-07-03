@@ -10,8 +10,11 @@ public class PatientDTO {
                 .nom(patient.getUser().getNom())
                 .prenom(patient.getUser().getPrenom())
                 .cin(patient.getCin())
+                .age(patient.getAge())
+                .sexe(patient.getSexe())
+                .telephone(patient.getTelephone())
                 .email(patient.getUser().getEmail())
-                .antecedents(patient.getAntecedents())
+//                .antecedents(patient.getAntecedents())
                 .build();
     }
 }

@@ -7,9 +7,12 @@ import info.cellardoor.CliniqueSolis.Auth.Models.User.User;
 import info.cellardoor.CliniqueSolis.Patient.Models.Antecedent;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import info.cellardoor.CliniqueSolis.Patient.Models.PatientRepository;
+import info.cellardoor.CliniqueSolis.Patient.Models.Sexe;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Component
 @Order(2)
@@ -45,6 +48,9 @@ public class PatientSeeder implements CommandLineRunner {
         String chirurgies = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas d'informations";
         String antecedentsFamiliaux = Math.random() > 0.5 ? faker.medical().diseaseName() : "pas d'informations";
         String cin = faker.regexify("[A-Z]{2}[0-9]{5}");
+        String telephone = faker.regexify("0[0-9]{9}");
+        Date dateNaissance = faker.date().birthday(18, 60);
+        Sexe sexe = Math.random() > 0.5 ? Sexe.Homme : Sexe.Femme;
 
         Antecedent antecedent = Antecedent.builder()
                 .groupeSanguin(groupeSanguin)
@@ -57,6 +63,9 @@ public class PatientSeeder implements CommandLineRunner {
         return Patient.builder()
                 .user(user)
                 .cin(cin)
+                .dateNaissance(dateNaissance)
+                .sexe(sexe)
+                .telephone(telephone)
                 .antecedents(antecedent)
                 .build();
     }
