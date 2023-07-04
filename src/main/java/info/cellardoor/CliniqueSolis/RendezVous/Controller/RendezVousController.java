@@ -22,8 +22,7 @@ public class RendezVousController {
 
     private final RendezVousService rendezVousService;
 
-    @GetMapping("/")
-    @PreAuthorize("hasAnyRole({'ROLE_UTILISATEUR', 'ROLE_ADMIN'})")
+    @GetMapping("/all")
     public ResponseEntity<ListRendezVousResponse> getAllRendezVous() {
         return ResponseEntity.ok(rendezVousService.getAll());
     }
