@@ -18,5 +18,5 @@ public class PatientRequest {
     private Integer antecedentId;
     private String telephone;
     private String sexe;
-    private String Age;
+    private String dateNaissance;
 }

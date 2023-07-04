@@ -28,8 +28,8 @@ public class PatientResponse {
     private String telephone;
     @JsonProperty("sexe")
     private Sexe sexe;
-    @JsonProperty("age")
-    private Integer age;
+    @JsonProperty("dateNaissance")
+    private String dateNaissance;
     @JsonProperty("antecedents")
     private Antecedent antecedents;
 }

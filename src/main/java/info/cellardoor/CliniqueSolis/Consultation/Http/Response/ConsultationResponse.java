@@ -2,8 +2,6 @@ package info.cellardoor.CliniqueSolis.Consultation.Http.Response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
-import java.util.Date;
 import java.util.List;
 @Data
 @Builder

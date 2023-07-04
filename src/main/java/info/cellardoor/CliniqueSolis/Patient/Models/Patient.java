@@ -27,11 +27,6 @@ public class Patient{
     private String cin;
     private String telephone;
     private Sexe sexe;
-    private Date dateNaissance;
-    public int getAge() {
-        Date date = new Date();
-        int age = date.getYear() - dateNaissance.getYear();
-        return age;
-    }
-
+    private String dateNaissance; // YYYY-MM-DD
+    //get age andiroha f angular
 }

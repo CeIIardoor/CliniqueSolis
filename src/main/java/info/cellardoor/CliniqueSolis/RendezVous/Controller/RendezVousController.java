@@ -48,18 +48,6 @@ public class RendezVousController {
         return ResponseEntity.ok(rendezVousService.getByDate(annee + "-" + String.format("%02d", mois) + "-" + String.format("%02d", jour)));
     }
 
-    //    @PostMapping("/createRDV")
-//    public ResponseEntity<RendezVousResponse> createRendezVous(@RequestBody RendezVousRequest rendezVousRequest) {
-//        RendezVous rendezVous = rendezVousService.createRendezVous(rendezVousRequest);
-//        return ResponseEntity.ok(RendezVousResponse.builder()
-//                .rendezVousId(rendezVous.getRendezVousId())
-//                .patientId(rendezVous.getPatient().getPatientId())
-//                .medecinId(rendezVous.getMedecin().getMedecinId())
-//                .date(rendezVous.getDate())
-//                .heure(rendezVous.getHeure())
-//                .duree(rendezVous.getDuree())
-//                .build());
-//    }
     @PostMapping("/createRDV")
     public ResponseEntity<RendezVousResponse> createRendezVous(
             @RequestBody RendezVousRequest RendezVousRequest
