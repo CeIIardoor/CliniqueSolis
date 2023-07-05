@@ -34,6 +34,7 @@ public class MedecinService {
                 .cin(medecin.getCin())
                 .specialite(medecin.getSpecialite())
                 .diplome(medecin.getDiplome())
+                .telephone(medecin.getTelephone())
                 .build();
     }
     public MedecinResponse createMedecin(MedecinRequest medecinRequest) {
@@ -48,19 +49,11 @@ public class MedecinService {
                 .cin(medecinRequest.getCin())
                 .specialite(medecinRequest.getSpecialite())
                 .diplome(medecinRequest.getDiplome())
+                .telephone(medecinRequest.getTelephone())
                 .user(associatedUser)
                 .build();
         var savedMedecin = medecinRepository.save(medecin);
-        return MedecinResponse.builder()
-                .medecinId(savedMedecin.getMedecinId())
-                .cin(savedMedecin.getCin())
-                .specialite(savedMedecin.getSpecialite())
-                .diplome(savedMedecin.getDiplome())
-                .nom(savedMedecin.getUser().getNom())
-                .prenom(savedMedecin.getUser().getPrenom())
-                .email(savedMedecin.getUser().getEmail())
-                .role(savedMedecin.getUser().getRole().toString())
-                .build();
+        return MedecinDTO.build(savedMedecin);
     }
 
     public void deleteMedecinById(Integer id) {
@@ -78,19 +71,13 @@ public class MedecinService {
         medecin.setCin(medecinRequest.getCin());
         medecin.setSpecialite(medecinRequest.getSpecialite());
         medecin.setDiplome(medecinRequest.getDiplome());
+        medecin.setTelephone(medecinRequest.getTelephone());
         var savedUser = userRepository.save(user);
         var savedMedecin = medecinRepository.save(medecin);
-        return MedecinResponse.builder()
-                .medecinId(savedMedecin.getMedecinId())
-                .cin(savedMedecin.getCin())
-                .specialite(savedMedecin.getSpecialite())
-                .diplome(savedMedecin.getDiplome())
-                .nom(savedUser.getNom())
-                .prenom(savedUser.getPrenom())
-                .build();
+        return MedecinDTO.build(savedMedecin);
     }
     public ListMedecinResponse findByCinStartingWith(String cin) {
-        List<Medecin> medecins = medecinRepository.findByCinStartingWith(cin);
+        List<Medecin> medecins = medecinRepository.findByCinStartingWith(cin.toUpperCase());
         if (medecins.size() == 0)
             return null;
         return ListMedecinResponse.builder()
@@ -103,6 +90,45 @@ public class MedecinService {
                                 .role(medecin.getUser().getRole().toString())
                                 .specialite(medecin.getSpecialite())
                                 .diplome(medecin.getDiplome())
+                                .telephone(medecin.getTelephone())
+                                .build())
+                        .toList())
+                .build();
+    }
+    public ListMedecinResponse findBySpecialiteStartingWithOrCinStartingWith(String specialite, String cin) {
+        List<Medecin> medecins = medecinRepository.findBySpecialiteStartingWithOrCinStartingWith(specialite.toUpperCase(), cin.toUpperCase());
+        if (medecins.size() == 0)
+            return null;
+        return ListMedecinResponse.builder()
+                .medecins(medecins.stream().map(medecin -> MedecinResponse.builder()
+                                .medecinId(medecin.getMedecinId())
+                                .nom(medecin.getUser().getNom())
+                                .prenom(medecin.getUser().getPrenom())
+                                .cin(medecin.getCin())
+                                .email(medecin.getUser().getEmail())
+                                .role(medecin.getUser().getRole().toString())
+                                .specialite(medecin.getSpecialite())
+                                .diplome(medecin.getDiplome())
+                                .telephone(medecin.getTelephone())
+                                .build())
+                        .toList())
+                .build();
+    }
+    public ListMedecinResponse findBySpecialiteStartingWith(String specialite) {
+        List<Medecin> medecins = medecinRepository.findBySpecialiteStartingWith(specialite.toUpperCase());
+        if (medecins.size() == 0)
+            return null;
+        return ListMedecinResponse.builder()
+                .medecins(medecins.stream().map(medecin -> MedecinResponse.builder()
+                                .medecinId(medecin.getMedecinId())
+                                .nom(medecin.getUser().getNom())
+                                .prenom(medecin.getUser().getPrenom())
+                                .cin(medecin.getCin())
+                                .email(medecin.getUser().getEmail())
+                                .role(medecin.getUser().getRole().toString())
+                                .specialite(medecin.getSpecialite())
+                                .diplome(medecin.getDiplome())
+                                .telephone(medecin.getTelephone())
                                 .build())
                         .toList())
                 .build();
@@ -114,14 +140,7 @@ public class MedecinService {
         var user = medecin.getUser();
         BeanUtils.copyProperties(medecinRequest, user, getNullPropertyNames(medecinRequest));
         var savedUser = userRepository.save(user);
-        return MedecinResponse.builder()
-                .medecinId(savedMedecin.getMedecinId())
-                .cin(savedMedecin.getCin())
-                .nom(savedUser.getNom())
-                .prenom(savedUser.getPrenom())
-                .role(String.valueOf(savedUser.getRole()))
-                .email(String.valueOf(savedUser.getEmail()))
-                .build();
+        return MedecinDTO.build(savedMedecin);
     }
     private static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
@@ -153,8 +172,10 @@ public class MedecinService {
                                 .role(medecin.getUser().getRole().toString())
                                 .specialite(medecin.getSpecialite())
                                 .diplome(medecin.getDiplome())
+                                .telephone(medecin.getTelephone())
                                 .build())
                         .toList())
                 .build();
     }
+
 }

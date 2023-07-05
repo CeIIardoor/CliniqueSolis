@@ -23,4 +23,5 @@ public class Ordonnance {
     private Integer ordonnance_id;
     private String medicaments;
     private String description;
+    private String date;
 }

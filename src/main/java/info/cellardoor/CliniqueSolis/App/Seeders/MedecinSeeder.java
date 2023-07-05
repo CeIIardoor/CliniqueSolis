@@ -42,12 +42,13 @@ public class MedecinSeeder implements CommandLineRunner {
                         "Ophtalmologue", "Orthopédiste", "Pédiatre", "Psychiatre", "Radiologue", "Urologue");
         String cin = faker.regexify("[A-Z]{2}[0-9]{5}");
         String diplome = faker.university().name();
-
+        String telephone = faker.regexify("0[0-9]{9}");
         return Medecin.builder()
                 .user(user)
                 .specialite(specialite)
                 .cin(cin)
                 .diplome(diplome)
+                .telephone(telephone)
                 .build();
     }
 }
