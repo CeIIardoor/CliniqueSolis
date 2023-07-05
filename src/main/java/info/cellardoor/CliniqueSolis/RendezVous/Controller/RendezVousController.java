@@ -80,7 +80,7 @@ public class RendezVousController {
         return ResponseEntity.ok(rendezVousService.getRendezVousById(id));
     }
     @PutMapping("/updateRDV/{id}")
-    public ResponseEntity<RendezVousResponse> updateRendezVousnById(
+    public ResponseEntity<RendezVousResponse> updateRendezVousById(
             @PathVariable("id") Integer id,
             @RequestBody RendezVousRequest RendezVousRequest
     ) {
