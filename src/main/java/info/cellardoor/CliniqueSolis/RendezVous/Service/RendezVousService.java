@@ -1,14 +1,10 @@
 package info.cellardoor.CliniqueSolis.RendezVous.Service;
 
-import info.cellardoor.CliniqueSolis.App.Helpers;
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
 import info.cellardoor.CliniqueSolis.Medecin.Models.Medecin;
 import info.cellardoor.CliniqueSolis.Medecin.Models.MedecinRepository;
-import info.cellardoor.CliniqueSolis.Patient.Http.Request.PatientRequest;
-import info.cellardoor.CliniqueSolis.Patient.Http.Response.PatientResponse;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import info.cellardoor.CliniqueSolis.Patient.Models.PatientRepository;
-import info.cellardoor.CliniqueSolis.Patient.Service.PatientDTO;
 import info.cellardoor.CliniqueSolis.RendezVous.Http.Reponse.ListRendezVousResponse;
 import info.cellardoor.CliniqueSolis.RendezVous.Http.Reponse.RendezVousResponse;
 import info.cellardoor.CliniqueSolis.RendezVous.Http.Request.RendezVousRequest;
@@ -16,7 +12,6 @@ import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVous;
 import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVousRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
