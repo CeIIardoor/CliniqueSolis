@@ -54,6 +54,9 @@ public class PatientSeeder implements CommandLineRunner {
                 + String.format("%02d", faker.number().numberBetween(1, 12)) + "-"
                 + String.format("%02d", faker.number().numberBetween(1, 28));
         Sexe sexe = Math.random() > 0.5 ? Sexe.Homme : Sexe.Femme;
+        String medicament = faker.medical().medicineName();
+        String description = faker.medical().symptoms();
+        String date = faker.date().birthday(0, 1).toString();
 
         Antecedent antecedent = Antecedent.builder()
                 .groupeSanguin(groupeSanguin)

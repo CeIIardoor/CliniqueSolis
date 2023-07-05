@@ -18,5 +18,6 @@ public class MedecinRequest {
     private String specialite;
     private String diplome;
     private String role;
+    private String telephone;
 
 }
