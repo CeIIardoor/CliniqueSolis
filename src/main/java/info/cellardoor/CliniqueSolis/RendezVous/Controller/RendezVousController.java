@@ -22,8 +22,7 @@ public class RendezVousController {
 
     private final RendezVousService rendezVousService;
 
-    @GetMapping("/")
-    @PreAuthorize("hasAnyRole({'ROLE_UTILISATEUR', 'ROLE_ADMIN'})")
+    @GetMapping("/all")
     public ResponseEntity<ListRendezVousResponse> getAllRendezVous() {
         return ResponseEntity.ok(rendezVousService.getAll());
     }
@@ -69,7 +68,7 @@ public class RendezVousController {
         return ResponseEntity.ok(rendezVousService.getRendezVousById(id));
     }
     @PutMapping("/updateRDV/{id}")
-    public ResponseEntity<RendezVousResponse> updateRendezVousnById(
+    public ResponseEntity<RendezVousResponse> updateRendezVousById(
             @PathVariable("id") Integer id,
             @RequestBody RendezVousRequest RendezVousRequest
     ) {

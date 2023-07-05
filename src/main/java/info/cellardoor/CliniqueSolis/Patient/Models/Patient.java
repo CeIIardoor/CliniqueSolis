@@ -25,6 +25,7 @@ public class Patient{
     @JoinColumn(name = "antecedent_id")
     public Antecedent antecedents;
     private String cin;
+    private Integer age;
     private String telephone;
     private Sexe sexe;
     private String dateNaissance; // YYYY-MM-DD
