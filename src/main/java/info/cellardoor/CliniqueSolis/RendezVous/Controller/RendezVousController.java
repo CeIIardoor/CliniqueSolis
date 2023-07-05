@@ -22,8 +22,7 @@ public class RendezVousController {
 
     private final RendezVousService rendezVousService;
 
-    @GetMapping("/")
-    @PreAuthorize("hasAnyRole({'ROLE_UTILISATEUR', 'ROLE_ADMIN'})")
+    @GetMapping("/all")
     public ResponseEntity<ListRendezVousResponse> getAllRendezVous() {
         return ResponseEntity.ok(rendezVousService.getAll());
     }
@@ -48,18 +47,6 @@ public class RendezVousController {
         return ResponseEntity.ok(rendezVousService.getByDate(annee + "-" + String.format("%02d", mois) + "-" + String.format("%02d", jour)));
     }
 
-    //    @PostMapping("/createRDV")
-//    public ResponseEntity<RendezVousResponse> createRendezVous(@RequestBody RendezVousRequest rendezVousRequest) {
-//        RendezVous rendezVous = rendezVousService.createRendezVous(rendezVousRequest);
-//        return ResponseEntity.ok(RendezVousResponse.builder()
-//                .rendezVousId(rendezVous.getRendezVousId())
-//                .patientId(rendezVous.getPatient().getPatientId())
-//                .medecinId(rendezVous.getMedecin().getMedecinId())
-//                .date(rendezVous.getDate())
-//                .heure(rendezVous.getHeure())
-//                .duree(rendezVous.getDuree())
-//                .build());
-//    }
     @PostMapping("/createRDV")
     public ResponseEntity<RendezVousResponse> createRendezVous(
             @RequestBody RendezVousRequest RendezVousRequest
@@ -81,7 +68,7 @@ public class RendezVousController {
         return ResponseEntity.ok(rendezVousService.getRendezVousById(id));
     }
     @PutMapping("/updateRDV/{id}")
-    public ResponseEntity<RendezVousResponse> updateRendezVousnById(
+    public ResponseEntity<RendezVousResponse> updateRendezVousById(
             @PathVariable("id") Integer id,
             @RequestBody RendezVousRequest RendezVousRequest
     ) {

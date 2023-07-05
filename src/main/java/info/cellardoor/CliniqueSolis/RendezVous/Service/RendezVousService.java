@@ -105,14 +105,14 @@ public class RendezVousService {
     }
 
     public RendezVousResponse updateRendezVousById(Integer id, RendezVousRequest rdvRequest) {
-        var rdv = rendezVousRepository.findByRendezVousId(id)
+        var rdv = rendezVousRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Rendez Vous  non trouvé"));
         rdv.setPatient(getPatientById(rdvRequest.getPatientId()));
         rdv.setMedecin(getMedecinById(rdvRequest.getMedecinId()));
         rdv.setDate(rdvRequest.getDate());
         rdv.setHeure(rdvRequest.getHeure());
         rdv.setDuree(rdvRequest.getDuree());
-        rendezVousRepository.save(rdv);
+        var saveRdv =rendezVousRepository.save(rdv);
         return RendezVousResponse.builder()
                 .rendezVousId(rdv.getRendezVousId())
                 .patientId(rdv.getPatient().getPatientId())
@@ -143,7 +143,7 @@ public class RendezVousService {
         return rendezVousRepository.save(rendezVous);
     }
     public void deleteRendezVousById(Integer rendezVousId) {
-        var rdv = rendezVousRepository.findByRendezVousId(rendezVousId)
+        var rdv = rendezVousRepository.findById(rendezVousId)
                 .orElseThrow(() -> new NoSuchElementException("Rendez-vous with id " + rendezVousId + " not found"));
         rendezVousRepository.delete(rdv);
     }

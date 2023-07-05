@@ -77,7 +77,7 @@ public class PrescriptionService {
     }
 
     public void deletePrescriptionById(Integer prescriptionId) {
-        var prescription = prescriptionRepository.findByPrescriptionId(prescriptionId)
+        var prescription = prescriptionRepository.findById(prescriptionId)
                 .orElseThrow(() -> new NoSuchElementException("Prescription non trouvé"));
         prescriptionRepository.delete(prescription);
     }
