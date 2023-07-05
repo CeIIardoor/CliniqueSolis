@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -24,4 +26,8 @@ public class Patient{
     public Antecedent antecedents;
     private String cin;
     private Integer age;
+    private String telephone;
+    private Sexe sexe;
+    private String dateNaissance; // YYYY-MM-DD
+    //get age andiroha f angular
 }

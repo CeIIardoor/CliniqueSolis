@@ -82,7 +82,7 @@ public class UserService {
                 .nom(request.getNom())
                 .email(request.getEmail())
                 .mdp(passwordEncoder.encode(request.getPassword()))
-                .role(Roles.ROLE_UTILISATEUR)
+                .role((request.getRole() == null) ? Roles.ROLE_UTILISATEUR : Roles.valueOf(request.getRole()))
                 .build();
         var savedUser = userRepository.save(user);
         return UserResponse.builder()

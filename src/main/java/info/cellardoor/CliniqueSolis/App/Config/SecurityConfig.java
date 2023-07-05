@@ -40,6 +40,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers("/api/rendezvous/**")
                 .permitAll()
+                .requestMatchers("/api/patient/create")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
