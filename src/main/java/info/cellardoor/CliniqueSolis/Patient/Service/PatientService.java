@@ -10,6 +10,7 @@ import info.cellardoor.CliniqueSolis.Patient.Http.Response.PatientResponse;
 import info.cellardoor.CliniqueSolis.Patient.Models.Antecedent;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
 import info.cellardoor.CliniqueSolis.Patient.Models.PatientRepository;
+import info.cellardoor.CliniqueSolis.Patient.Models.Sexe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,6 +52,8 @@ public class PatientService {
 
         var patient = Patient.builder()
                 .cin(patientRequest.getCin())
+                .telephone(patientRequest.getTelephone())
+                .sexe(Sexe.valueOf(patientRequest.getSexe()))
                 .user(associatedUser)
                 .antecedents(associatedantecedent)
                 .build();

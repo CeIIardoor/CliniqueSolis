@@ -27,11 +27,11 @@ public class Patient{
     private String cin;
     private String telephone;
     private Sexe sexe;
-    private Date dateNaissance;
-    public int getAge() {
+    private String dateNaissance;
+
+    public Integer getAge() {
         Date date = new Date();
-        int age = date.getYear() - dateNaissance.getYear();
-        return age;
+        return date.getYear() - Integer.parseInt(dateNaissance.split("-")[0]);
     }
 
 }

@@ -22,4 +22,5 @@ public class Medecin{
     private String specialite;
     private String diplome;
     private String cin;
+    private String telephone;
 }

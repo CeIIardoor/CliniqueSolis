@@ -27,4 +27,6 @@ public class MedecinResponse {
     private String email;
     @JsonProperty("role")
     private String role;
+    @JsonProperty("telephone")
+    private String telephone;
 }

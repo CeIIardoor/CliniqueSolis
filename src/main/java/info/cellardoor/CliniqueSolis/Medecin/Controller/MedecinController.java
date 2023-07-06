@@ -38,6 +38,7 @@ public class MedecinController {
         }
         return ResponseEntity.ok(medecinService.findByCinStartingWith(cin));
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteMedecinById(
 

@@ -8,17 +8,9 @@ spring:
   profiles:
     active: dev
   datasource:
-#    url: jdbc:postgresql://ep-long-scene-929094-pooler.eu-central-1.aws.neon.tech/neondb?user=MehdiKaturipo&password=bvVmpFL3n8lC
-#    username: MehdiKaturipo
-#    password: bvVmpFL3n8lC
-
     url: jdbc:postgresql://localhost:5432/cliniquesolis
     username: postgres
     password: postgrespw
-
-#    url: jdbc:postgresql://dumbo.db.elephantsql.com/hnsnvusu
-#    username: hnsnvusu
-#    password: gOZFxpo3WG-7RHnJEmjkCaWfkxr77StO
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

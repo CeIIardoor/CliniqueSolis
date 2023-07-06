@@ -26,7 +26,15 @@ public class StatsController {
         this.statsService = statsService;
     }
 
+    @GetMapping("/GET")
+    public List<Stats> getStats() {
+        return statsService.getStats() ;
+    }
+    @PostMapping("/POST")
+    public void postStats(@RequestBody Stats statistique){
+        System.out.println(statistique);
 
+    }
 
 //    @GetMapping("/rendezvous-par-date")
 //    public Map<String, Long> getNombreRendezVousParDate() {
@@ -46,11 +54,6 @@ public class StatsController {
     public ResponseEntity<Map<Integer, Long>> getNombrePatientsParAge() {
         Map<Integer, Long> nombrePatientsParAge = statsService.calculerNombrePatientsParAge();
         return ResponseEntity.ok(nombrePatientsParAge);
-    }
-    @GetMapping("/patients-par-age-poucentage")
-    public ResponseEntity<Map<String, Double>> calculatePercentagePatientsByAgeRange() {
-        Map<String, Double> calculatePercentagePatientsByAgeRange = statsService.calculatePercentagePatientsByAgeRange();
-        return ResponseEntity.ok(calculatePercentagePatientsByAgeRange);
     }
 //    @GetMapping("/medecins-par-specialite")
 //    public Map<String, Long> getNombreMedecinsParSpecialite() {
