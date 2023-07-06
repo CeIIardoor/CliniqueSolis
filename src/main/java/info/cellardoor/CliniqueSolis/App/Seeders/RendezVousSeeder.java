@@ -26,7 +26,7 @@ public class RendezVousSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        int nbRendezVous = 5;
+        int nbRendezVous = 40;
 
         for (int i = 0; i < nbRendezVous; i++) {
 
@@ -42,10 +42,11 @@ public class RendezVousSeeder implements CommandLineRunner {
                     .patient(patient)
                     .medecin(medecin)
                     .duree(frenchFaker.options().option(15, 30, 45, 60))
-                    .date(String.format("%02d-%02d-%02d", frenchFaker.number().numberBetween(2023, 2024), frenchFaker.number().numberBetween(1, 12), frenchFaker.number().numberBetween(1, 28)))
+                    .date(String.format("%02d-%02d-%02d", frenchFaker.number().numberBetween(2023, 2024), frenchFaker.number().numberBetween(1, 4), frenchFaker.number().numberBetween(1, 5)))
                     .heure(String.format("%02d:%02d", frenchFaker.number().numberBetween(8, 18), frenchFaker.options().option(0, 30)))
                     .build();
             rendezVousRepository.save(rdv);
+
         }
     }
 }

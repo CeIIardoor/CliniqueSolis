@@ -55,6 +55,46 @@ public  List<Stats> getStats() {
 
         return nombrePatientsParAge;
     }
+    public Map<String, Double> calculatePercentagePatientsByAgeRange() {
+        List<Patient> patients = patientRepository.findAll();
+        Map<String, Long> countPatientsByAgeRange = new HashMap<>();
+        Map<String, Double> percentagePatientsByAgeRange = new HashMap<>();
+
+        // Initialize the age range categories
+        String[] ageRanges = {"0-18", "19-40", "41-60", "60+"};
+
+        // Initialize the count for each age range
+        for (String ageRange : ageRanges) {
+            countPatientsByAgeRange.put(ageRange, 0L);
+        }
+
+        // Count the number of patients within each age range
+        for (Patient patient : patients) {
+            int age = patient.getAge();
+            if (age >= 0 && age <= 18) {
+                countPatientsByAgeRange.put("0-18", countPatientsByAgeRange.get("0-18") + 1);
+            } else if (age >= 19 && age <= 40) {
+                countPatientsByAgeRange.put("19-40", countPatientsByAgeRange.get("19-40") + 1);
+            } else if (age >= 41 && age <= 60) {
+                countPatientsByAgeRange.put("41-60", countPatientsByAgeRange.get("41-60") + 1);
+            } else {
+                countPatientsByAgeRange.put("60+", countPatientsByAgeRange.get("60+") + 1);
+            }
+        }
+
+        // Calculate the total number of patients
+        long totalPatients = patients.size();
+
+        // Calculate the percentage for each age range
+        for (Map.Entry<String, Long> entry : countPatientsByAgeRange.entrySet()) {
+            String ageRange = entry.getKey();
+            long count = entry.getValue();
+            double percentage = (count / (double) totalPatients) * 100;
+            percentagePatientsByAgeRange.put(ageRange, percentage);
+        }
+
+        return percentagePatientsByAgeRange;
+    }
     public Map<String, Long> calculerNombreRendezVousParDate() {
         List<RendezVous> rendezVousList = rendezVousRepository.findAll();
         Map<String, Long> nombreRendezVousParDate = new HashMap<>();

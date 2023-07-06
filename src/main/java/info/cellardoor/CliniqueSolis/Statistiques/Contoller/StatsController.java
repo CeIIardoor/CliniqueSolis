@@ -25,41 +25,8 @@ public class StatsController {
     public StatsController(StatsService statsService) {
         this.statsService = statsService;
     }
-    @GetMapping("/nombre/medecin")
-    public ResponseEntity<StatsPatients> getMedecinscount()
-    {
-        return ResponseEntity.ok(statsService.getNombreMedcin());
-    }
-    @PostMapping("/create")
-    public ResponseEntity<MedecinResponse> createMedecin(
-            @RequestBody MedecinRequest medecinRequest
-    ) {
-        return ResponseEntity.ok(statsService.createMedecin(medecinRequest));
-    }
-    @GetMapping("/nombrepatient")
-    public ResponseEntity<ListMedecinResponse> getAll() {
-        return ResponseEntity.ok(statsService.getAll());
-    }
-    @GetMapping("/search")
-    public ResponseEntity<ListMedecinResponse> getByCinStartingWith(
-            @RequestParam(value = "cin", required = false) String cin) {
-        if (cin == null) {
-            return ResponseEntity.ok(statsService.getAll());
-        }
-        return ResponseEntity.ok(statsService.findByCinStartingWith(cin));
-    }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteMedecinById(
 
-    @GetMapping("/GET")
-    public List<Stats> getStats() {
-        return statsService.getStats() ;
-    }
-    @PostMapping("/POST")
-    public void postStats(@RequestBody Stats statistique){
-        System.out.println(statistique);
 
-    }
 
 //    @GetMapping("/rendezvous-par-date")
 //    public Map<String, Long> getNombreRendezVousParDate() {
@@ -79,6 +46,11 @@ public class StatsController {
     public ResponseEntity<Map<Integer, Long>> getNombrePatientsParAge() {
         Map<Integer, Long> nombrePatientsParAge = statsService.calculerNombrePatientsParAge();
         return ResponseEntity.ok(nombrePatientsParAge);
+    }
+    @GetMapping("/patients-par-age-poucentage")
+    public ResponseEntity<Map<String, Double>> calculatePercentagePatientsByAgeRange() {
+        Map<String, Double> calculatePercentagePatientsByAgeRange = statsService.calculatePercentagePatientsByAgeRange();
+        return ResponseEntity.ok(calculatePercentagePatientsByAgeRange);
     }
 //    @GetMapping("/medecins-par-specialite")
 //    public Map<String, Long> getNombreMedecinsParSpecialite() {
