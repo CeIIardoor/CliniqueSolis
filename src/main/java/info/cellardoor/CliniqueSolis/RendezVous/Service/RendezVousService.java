@@ -1,6 +1,8 @@
 package info.cellardoor.CliniqueSolis.RendezVous.Service;
 
 import info.cellardoor.CliniqueSolis.Auth.Models.User.UserRepository;
+import info.cellardoor.CliniqueSolis.Consultation.Http.Request.ConsultationRequest;
+import info.cellardoor.CliniqueSolis.Consultation.Http.Response.ConsultationResponse;
 import info.cellardoor.CliniqueSolis.Medecin.Models.Medecin;
 import info.cellardoor.CliniqueSolis.Medecin.Models.MedecinRepository;
 import info.cellardoor.CliniqueSolis.Patient.Models.Patient;
@@ -11,7 +13,7 @@ import info.cellardoor.CliniqueSolis.RendezVous.Http.Request.RendezVousRequest;
 import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVous;
 import info.cellardoor.CliniqueSolis.RendezVous.Models.RendezVousRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +50,7 @@ public class RendezVousService {
         return ListRendezVousResponse.builder()
                 .rendezVous(listeRendezVous.stream().map(rendezVous -> RendezVousResponse.builder()
                                 .rendezVousId(rendezVous.getRendezVousId())
-                                .patientId(rendezVous.getPatient().getPatientId())
+                                .patient_id(rendezVous.getPatient().getPatientId())
                                 .medecinId(rendezVous.getMedecin().getMedecinId())
                                 .date(rendezVous.getDate())
                                 .heure(rendezVous.getHeure())
@@ -61,7 +63,7 @@ public class RendezVousService {
         var rdv = rendezVousRepository.findByRendezVousId(id).orElseThrow(() -> new NoSuchElementException("Rendez Vous non trouvé"));
         return RendezVousResponse.builder()
                 .rendezVousId(rdv.getRendezVousId())
-                .patientId(rdv.getPatient().getPatientId())
+                .patient_id(rdv.getPatient().getPatientId())
                 .medecinId(rdv.getMedecin().getMedecinId())
                 .date(rdv.getDate())
                 .heure(rdv.getHeure())
@@ -96,7 +98,7 @@ public class RendezVousService {
         var rdv= rendezVousRepository.save(rendezVous);
         return RendezVousResponse.builder()
                 .rendezVousId(rdv.getRendezVousId())
-                .patientId(rdv.getPatient().getPatientId())
+                .patient_id(rdv.getPatient().getPatientId())
                 .medecinId(rdv.getMedecin().getMedecinId())
                 .date(rdv.getDate())
                 .heure(rdv.getHeure())
@@ -107,6 +109,7 @@ public class RendezVousService {
     public RendezVousResponse updateRendezVousById(Integer id, RendezVousRequest rdvRequest) {
         var rdv = rendezVousRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Rendez Vous  non trouvé"));
+        rdv.setRendezVousId(rdvRequest.getRendezVousId());
         rdv.setPatient(getPatientById(rdvRequest.getPatientId()));
         rdv.setMedecin(getMedecinById(rdvRequest.getMedecinId()));
         rdv.setDate(rdvRequest.getDate());
@@ -115,10 +118,11 @@ public class RendezVousService {
         var saveRdv =rendezVousRepository.save(rdv);
         return RendezVousResponse.builder()
                 .rendezVousId(rdv.getRendezVousId())
-                .patientId(rdv.getPatient().getPatientId())
+                .patient_id(rdv.getPatient().getPatientId())
                 .medecinId(rdv.getMedecin().getMedecinId())
                 .date(rdv.getDate())
                 .heure(rdv.getHeure())
+                .duree(rdv.getDuree())
                 .build();
     }
     public RendezVous updateRendezVous(Integer rendezVousId, RendezVousRequest rendezVousRequest) {
@@ -162,7 +166,7 @@ public class RendezVousService {
                 .rendezVous(rendezVous.stream()
                         .map(rdv -> RendezVousResponse.builder()
                                 .rendezVousId(rdv.getRendezVousId())
-                                .patientId(rdv.getPatient().getPatientId())
+                                .patient_id(rdv.getPatient().getPatientId())
                                 .medecinId(rdv.getMedecin().getMedecinId())
                                 .date(rdv.getDate())
                                 .heure(rdv.getHeure())
