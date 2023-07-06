@@ -25,9 +25,12 @@ public class Patient{
     @JoinColumn(name = "antecedent_id")
     public Antecedent antecedents;
     private String cin;
-    private Integer age;
     private String telephone;
     private Sexe sexe;
-    private String dateNaissance; // YYYY-MM-DD
-    //get age andiroha f angular
+    private String dateNaissance;
+
+    public Integer getAge() {
+        Date date = new Date();
+        return date.getYear() - Integer.parseInt(dateNaissance.split("-")[0]);
+    }
 }
