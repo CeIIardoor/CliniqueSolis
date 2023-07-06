@@ -55,6 +55,11 @@ public class StatsController {
         Map<Integer, Long> nombrePatientsParAge = statsService.calculerNombrePatientsParAge();
         return ResponseEntity.ok(nombrePatientsParAge);
     }
+    @GetMapping("/patients-par-age-poucentage")
+    public ResponseEntity<Map<String, Double>> calculatePercentagePatientsByAgeRange() {
+        Map<String, Double> calculatePercentagePatientsByAgeRange = statsService.calculatePercentagePatientsByAgeRange();
+        return ResponseEntity.ok(calculatePercentagePatientsByAgeRange);
+    }
 //    @GetMapping("/medecins-par-specialite")
 //    public Map<String, Long> getNombreMedecinsParSpecialite() {
 //        return statsService.calculerNombreMedecinsParSpecialite();
