@@ -75,6 +75,7 @@ public class PatientService {
     }
 
 
+
     public PatientResponse getPatientResponse(PatientRequest patientRequest, Patient patient) {
         BeanUtils.copyProperties(patientRequest, patient, Helpers.getNullPropertyNames(patientRequest));
         var savedPatient = patientRepository.save(patient);
