@@ -2,11 +2,16 @@ package info.cellardoor.CliniqueSolis.Statistiques.Contoller;
 
 import info.cellardoor.CliniqueSolis.RendezVous.Http.Reponse.RendezVousResponse;
 import info.cellardoor.CliniqueSolis.Statistiques.Model.Stats;
+import info.cellardoor.CliniqueSolis.Medecin.Http.Request.MedecinRequest;
+import info.cellardoor.CliniqueSolis.Medecin.Http.Response.ListMedecinResponse;
+import info.cellardoor.CliniqueSolis.Medecin.Http.Response.MedecinResponse;
+import info.cellardoor.CliniqueSolis.Statistiques.Http.Response.StatsPatients;
 import info.cellardoor.CliniqueSolis.Statistiques.Service.StatsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,10 +55,10 @@ public class StatsController {
         Map<Integer, Long> nombrePatientsParAge = statsService.calculerNombrePatientsParAge();
         return ResponseEntity.ok(nombrePatientsParAge);
     }
-    @GetMapping("/pourcentage-patients-par-age")
-    public ResponseEntity<Map<Integer, Double>> calculerPourcentagePatientsParAge() {
-        Map<Integer, Double> pourcentagePatientsParAge = statsService.calculerPourcentagePatientsParAge();
-        return ResponseEntity.ok(pourcentagePatientsParAge);
+    @GetMapping("/patients-par-age-poucentage")
+    public ResponseEntity<Map<String, Double>> calculatePercentagePatientsByAgeRange() {
+        Map<String, Double> calculatePercentagePatientsByAgeRange = statsService.calculatePercentagePatientsByAgeRange();
+        return ResponseEntity.ok(calculatePercentagePatientsByAgeRange);
     }
 //    @GetMapping("/medecins-par-specialite")
 //    public Map<String, Long> getNombreMedecinsParSpecialite() {
@@ -63,11 +68,6 @@ public class StatsController {
     public ResponseEntity<Map<String, Long>> getNombreMedecinsParSpecialite() {
         Map<String, Long> nombreMedecinsParSpecialite = statsService.calculerNombreMedecinsParSpecialite();
         return ResponseEntity.ok(nombreMedecinsParSpecialite);
-    }
-    @GetMapping("/pourcentage-medecins-par-specialite")
-    public ResponseEntity<Map<String, Double>> calculerPourcentageMedecinsParSpecialite() {
-        Map<String, Double> pourcentageMedecinsParSpecialite = statsService.calculerPourcentageMedecinsParSpecialite();
-        return ResponseEntity.ok(pourcentageMedecinsParSpecialite);
     }
 //    @GetMapping("/consultations-par-date")
 //    public Map<String, Long> getNombreConsultationsParDate() {

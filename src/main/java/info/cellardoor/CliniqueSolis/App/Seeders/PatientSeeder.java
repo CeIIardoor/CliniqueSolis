@@ -50,7 +50,7 @@ public class PatientSeeder implements CommandLineRunner {
         String cin = faker.regexify("[A-Z]{2}[0-9]{5}");
         String telephone = faker.regexify("0[0-9]{9}");
 //        YYYY-MM-DD with number padding, ty copilot
-        String dateNaissance = faker.number().numberBetween(1971, 2000) + "-"
+        String dateNaissance = faker.number().numberBetween(1931, 2023) + "-"
                 + String.format("%02d", faker.number().numberBetween(1, 12)) + "-"
                 + String.format("%02d", faker.number().numberBetween(1, 28));
         Sexe sexe = Math.random() > 0.5 ? Sexe.Homme : Sexe.Femme;

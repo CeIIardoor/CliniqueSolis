@@ -31,6 +31,8 @@ public class Patient{
 
     public Integer getAge() {
         Date date = new Date();
-        return date.getYear() - Integer.parseInt(dateNaissance.split("-")[0]);
+        return 2023 - Integer.parseInt(dateNaissance.split("-")[0]);
     }
+
+
 }
