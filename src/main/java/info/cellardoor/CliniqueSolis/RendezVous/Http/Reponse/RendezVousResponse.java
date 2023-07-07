@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class RendezVousResponse {
-    @JsonProperty("rendez_vous_id")
+    @JsonProperty("rendezVous_id")
     private Integer rendezVousId;
     @JsonProperty("patient_id")
-    private Integer patientId;
+    private Integer patient_id;
     @JsonProperty("medecin_id")
     private Integer medecinId;
     @JsonProperty("date")
